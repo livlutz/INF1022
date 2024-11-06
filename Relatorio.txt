@@ -1,0 +1,15 @@
+Relatório do trabalho final de INF1022 2024.2 
+
+Nome - matrícula - turma : Lívia Lutz dos Santos - 2211055 - 3WA
+
+
+
+estar˜ao descritos
+seu trabalho - o que foi implementado, como foi implementado, o que funciona, o
+que n˜ao funciona, quais os testes utilizados etc. - e quaisquer outras informa¸c˜oes
+que vocˆe considere relevantes, como a maneira de execut´a-lo.
+No seu relat´orio final deve estar contido a gram´atica final utilizada no trabalho. A gram´atica deve estar descrita de maneira similar ao que a gramatica
+inicial foi descrita neste documento. Deixe claro quais regras foram adicionadas
+na gram´atica descrita neste relat´orio para que seja poss´ıvel permitir todas as
+funcionalidades solicitadas. Caso tenha implementado alguma funcionalidade
+adicional, ou seja, uma que n˜ao foi solicitada, por favor deixe expl´ıcito.
