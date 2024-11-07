@@ -1,7 +1,7 @@
 #Livia Lutz dos Santos - 2211055 - 3WA
 
 import ply.lex as lex
-from ply.yacc import yacc
+import ply.yacc as yacc
 
 """A sintaxe da linguagem Matem´agica ´e dada pela gram´atica abaixo:
 programa −→ cmds
@@ -76,5 +76,83 @@ lexer.input(data)
 for tok in lexer:
     print(tok)
 
+# Definindo a gramatica
 
+def p_programa(p):
+    '''programa : cmds'''
+    p[0] = p[1]
 
+def p_cmds(p):
+    '''cmds : cmd cmds
+            | cmd'''
+    if len(p) == 3:
+        p[0] = p[1] + p[2]
+    else:
+        p[0] = p[1]
+
+def p_cmd(p):
+    '''cmd : atribuicao
+              | impressao
+              | operacao
+              | repeticao
+              | selecao'''
+    p[0] = p[1]
+
+#atribuicao −→ FACA var SER num. tem q virar var = num
+def p_atribuicao(p):
+    '''atribuicao : FACA VAR SER NUM PONTO'''
+    p[0] = p[2] + " = " + str(p[4]) + "\n"
+
+#impressao −→ MOSTRE var. | MOSTRE operacao. tem q virar print(var) ou print(operacao)
+def p_impressao(p):
+    '''impressao : MOSTRE VAR PONTO
+                 | MOSTRE operacao PONTO'''
+    p[0] = "print(" + str(p[2]) + ")\n"
+
+#operacao −→ SOME var COM var. | SOME var COM num. | SOME num COM num. | MULTIPLIQUE var POR var. | MULTIPLIQUE var POR num. | MULTIPLIQUE num POR num. | MULTIPLIQUE num POR var.
+#tem q virar var + var, var + num, num + num, var * var, var * num, num * num, num * var
+def p_operacao(p):
+    '''operacao : SOME VAR COM VAR PONTO
+                | SOME VAR COM NUM PONTO
+                | SOME NUM COM NUM PONTO
+                | MULTIPLIQUE VAR POR VAR PONTO
+                | MULTIPLIQUE VAR POR NUM PONTO
+                | MULTIPLIQUE NUM POR NUM PONTO
+                | MULTIPLIQUE NUM POR VAR PONTO'''
+    if p[1] == "SOME":
+        p[0] = str(p[2]) + " + " + str(p[4]) + "\n"
+    else:
+        p[0] = str(p[2]) + " * " + str(p[4]) + "\n"
+
+#repeticao −→ REPITA num VEZES : cmds FIM
+def p_repeticao(p):
+    '''repeticao : REPITA NUM VEZES DOISPONTOS cmds FIM'''
+    p[0] = "for i in range(" + str(p[2]) + "):\n" + p[5]
+
+#selecao −→ SE num ENTAO cmds | SE num ENTAO cmds SENAO cmds | SE num ENTAO cmds SENAO cmds FIM
+def p_selecao(p):
+    '''selecao : SE NUM ENTAO cmds
+               | SE NUM ENTAO cmds SENAO cmds
+               | SE NUM ENTAO cmds SENAO cmds FIM'''
+    if len(p) == 5:
+        p[0] = "if " + str(p[2]) + ":\n" + p[4]
+    elif len(p) == 6:
+        p[0] = "if " + str(p[2]) + ":\n" + p[4] + "else:\n" + p[6]
+    else:
+        p[0] = "if " + str(p[2]) + ":\n" + p[4] + "else:\n" + p[6]
+
+def p_error(p):
+    print("Erro de sintaxe!")
+
+# Constroi o parser
+parser = yacc.yacc()
+
+# Faz o parsing do arquivo
+result = parser.parse(data)
+
+# Imprime o resultado
+print(result)
+
+# Executa o código
+exec(result)
+    
