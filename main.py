@@ -26,7 +26,31 @@ Onde A e B podem ser variaveis ou numeros"""
 
 #tokens para os terminais da linguagem
 
-tokens = ('FACA', 'SER', 'MOSTRE', 'SOME', 'COM', 'MULTIPLIQUE', 'POR', 'REPITA', 'VEZES', 'FIM', 'SE', 'ENTAO', 'SENAO', 'NUM', 'VAR','PONTO', 'DOISPONTOS')
+# Dicionário de palavras reservadas
+reserved = {
+    'FACA': 'FACA',
+    'SER': 'SER',
+    'MOSTRE': 'MOSTRE',
+    'SOME': 'SOME',
+    'COM': 'COM',
+    'MULTIPLIQUE': 'MULTIPLIQUE',
+    'POR': 'POR',
+    'REPITA': 'REPITA',
+    'VEZES': 'VEZES',
+    'FIM': 'FIM',
+    'SE': 'SE',
+    'ENTAO': 'ENTAO',
+    'SENAO': 'SENAO'
+}
+
+# Definindo o token VAR como qualquer palavra que não seja uma palavra reservada
+tokens = ['NUM', 'VAR', 'PONTO', 'DOISPONTOS'] + list(reserved.values())
+
+# Regex para variáveis e palavras-chave
+def t_VAR(t):
+    r'[a-zA-Z_][a-zA-Z0-9_]*'
+    t.type = reserved.get(t.value, 'VAR')  # Se não for uma palavra reservada, é uma variável
+    return t
 
 #expressoes regulares para os tokens
 t_FACA = r'FACA'
@@ -54,13 +78,9 @@ def t_NUM(t):
     t.value = int(t.value)  # Converte o valor do token para inteiro
     return t
 
-# definindo regex para as variaveis
-def t_VAR(t):
-    r'[a-zA-Z_][a-zA-Z0-9_]*'
-    return t
 
-def t_error(t): # nos dizer qual caractere ilegal e se tem erro
-    print("Caracter ilegal: ", t.value[0])
+def t_error(t):
+    print(f"Caracter ilegal: '{t.value[0]}' na posição {t.lexpos}")
     t.lexer.skip(1)
 
 #Constroi o lexer
@@ -131,15 +151,13 @@ def p_repeticao(p):
 
 #selecao −→ SE num ENTAO cmds | SE num ENTAO cmds SENAO cmds | SE num ENTAO cmds SENAO cmds FIM
 def p_selecao(p):
-    '''selecao : SE NUM ENTAO cmds
-               | SE NUM ENTAO cmds SENAO cmds
+    '''selecao : SE NUM ENTAO cmds FIM
                | SE NUM ENTAO cmds SENAO cmds FIM'''
-    if len(p) == 5:
-        p[0] = "if " + str(p[2]) + ":\n" + p[4]
-    elif len(p) == 6:
-        p[0] = "if " + str(p[2]) + ":\n" + p[4] + "else:\n" + p[6]
+    if len(p) == 6:
+        p[0] = f"if {p[2]}:\n" + p[4]
     else:
-        p[0] = "if " + str(p[2]) + ":\n" + p[4] + "else:\n" + p[6]
+        p[0] = f"if {p[2]}:\n" + p[4] + "else:\n" + p[6]
+
 
 def p_error(p):
     print("Erro de sintaxe!")
@@ -147,12 +165,12 @@ def p_error(p):
 # Constroi o parser
 parser = yacc.yacc()
 
-# Faz o parsing do arquivo
+# Faz o parsing do arquivo e imprime o código gerado
 result = parser.parse(data)
-
-# Imprime o resultado
+print("Código gerado:")
 print(result)
 
 # Executa o código
 exec(result)
+
     
