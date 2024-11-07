@@ -101,9 +101,10 @@ def p_cmds(p):
     '''cmds : cmd cmds
             | cmd'''
     if len(p) == 3:
-        p[0] = p[1] + p[2]
+        p[0] = p[1] + "\n" + p[2]
     else:
         p[0] = p[1]
+
 
 def p_cmd(p):
     '''cmd : atribuicao
@@ -116,13 +117,13 @@ def p_cmd(p):
 #atribuicao −→ FACA var SER num. tem q virar var = num
 def p_atribuicao(p):
     '''atribuicao : FACA VAR SER NUM PONTO'''
-    p[0] = p[2] + " = " + str(p[4]) + "\n"
+    p[0] = f"{p[2]} = {p[4]}" + "\n"
 
 #impressao −→ MOSTRE var. | MOSTRE operacao. tem q virar print(var) ou print(operacao)
 def p_impressao(p):
     '''impressao : MOSTRE VAR PONTO
                  | MOSTRE operacao PONTO'''
-    p[0] = "print(" + str(p[2]) + ")\n"
+    p[0] = f"print({p[2]})" + "\n"
 
 #operacao −→ SOME var COM var. | SOME var COM num. | SOME num COM num. | MULTIPLIQUE var POR var. | MULTIPLIQUE var POR num. | MULTIPLIQUE num POR num. | MULTIPLIQUE num POR var.
 #tem q virar var + var, var + num, num + num, var * var, var * num, num * num, num * var
@@ -155,18 +156,19 @@ def p_selecao(p):
                | SE VAR ENTAO cmds SENAO cmds FIM
                | SE NUM ENTAO cmds SENAO cmds FIM'''
     if len(p) == 6:
-        # Gerar apenas uma indentação para o bloco interno
+        # Bloco if
         p[0] = f"if {p[2]}:\n    " + p[4].replace("\n", "\n    ")
     else:
-        # Gerar apenas uma indentação para os blocos internos do if e else
-        p[0] = f"if {p[2]}:\n    " + p[4].replace("\n", "\n    ") + "\nelse:\n    " + p[6].replace("\n", "\n    ")
+        # Bloco if-else
+        p[0] = (f"if {p[2]}:\n    " + p[4].replace("\n", "\n    ") +
+                "\nelse:\n    " + p[6].replace("\n", "\n    "))
 
 
 def p_error(p):
     print("Erro de sintaxe!")
 
 #fazer isso para todas as files
-with open("file5.mag", "r") as file:
+with open("file6.mag", "r") as file:
     data = file.read()
 
 lexer.input(data)
