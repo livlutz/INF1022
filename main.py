@@ -86,15 +86,6 @@ def t_error(t):
 #Constroi o lexer
 lexer = lex.lex(debug=True)
 
-#fazer isso para todas as files
-with open("file3.mag", "r") as file:
-    data = file.read()
-
-lexer.input(data)
-
-# Imprime os tokens gerados
-for tok in lexer:
-    print(tok)
 
 # Definindo a gramatica
 
@@ -150,7 +141,7 @@ def p_operacao(p):
 #repeticao −→ REPITA num VEZES : cmds FIM
 def p_repeticao(p):
     '''repeticao : REPITA NUM VEZES DOISPONTOS cmds FIM'''
-    p[0] = "for i in range(" + str(p[2]) + "):\n\t" + p[5].replace("\n", "\n\t")
+    p[0] = "for i in range(" + str(p[2]) + "):\n\t" + p[5].replace("\n", "\t") + "\n"
 
 
 #selecao −→ SE num ENTAO cmds | SE num ENTAO cmds SENAO cmds | SE num ENTAO cmds SENAO cmds FIM
@@ -165,6 +156,16 @@ def p_selecao(p):
 
 def p_error(p):
     print("Erro de sintaxe!")
+
+#fazer isso para todas as files
+with open("file5.mag", "r") as file:
+    data = file.read()
+
+lexer.input(data)
+
+# Imprime os tokens gerados
+for tok in lexer:
+    print(tok)
 
 # Constroi o parser
 parser = yacc.yacc()
