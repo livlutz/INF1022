@@ -1,6 +1,6 @@
 #Livia Lutz dos Santos - 2211055 - 3WA
 
-from ply.lex import lex
+import ply.lex as lex
 from ply.yacc import yacc
 
 """A sintaxe da linguagem Matem´agica ´e dada pela gram´atica abaixo:
@@ -65,5 +65,16 @@ def t_error(t): # nos dizer qual caractere ilegal e se tem erro
 
 #Constroi o lexer
 lexer = lex.lex(debug=True)
+
+#fazer isso para todas as files
+with open("file1.mag", "r") as file:
+    data = file.read()
+
+lexer.input(data)
+
+# Imprime os tokens gerados
+for tok in lexer:
+    print(tok)
+
 
 
