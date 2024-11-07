@@ -114,13 +114,13 @@ def p_cmd(p):
 #atribuicao −→ FACA var SER num. tem q virar var = num
 def p_atribuicao(p):
     '''atribuicao : FACA VAR SER NUM PONTO'''
-    p[0] = f"{p[2]} = {p[4]}" + "\n"
+    p[0] = f"{p[2]} = {p[4]}"
 
 #impressao −→ MOSTRE var. | MOSTRE operacao. tem q virar print(var) ou print(operacao)
 def p_impressao(p):
     '''impressao : MOSTRE VAR PONTO
                  | MOSTRE operacao PONTO'''
-    p[0] = f"print({p[2]})" + "\n"
+    p[0] = f"print({p[2]})"
 
 #operacao −→ SOME var COM var. | SOME var COM num. | SOME num COM num. | MULTIPLIQUE var POR var. | MULTIPLIQUE var POR num. | MULTIPLIQUE num POR num. | MULTIPLIQUE num POR var.
 #tem q virar var + var, var + num, num + num, var * var, var * num, num * num, num * var
@@ -133,18 +133,33 @@ def p_operacao(p):
                 | MULTIPLIQUE NUM POR NUM PONTO
                 | MULTIPLIQUE NUM POR VAR PONTO'''
     if p[1] == "SOME":
-        p[0] = f"{p[2]} = {p[2]} + {p[4]}\n"
+        p[0] = f"{p[2]} = {p[2]} + {p[4]}"
     else:
-        p[0] = f"{p[2]} = {p[2]} * {p[4]}\n"
+        p[0] = f"{p[2]} = {p[2]} * {p[4]}"
 
 
 #repeticao −→ REPITA num VEZES : cmds FIM
 def p_repeticao(p):
     '''repeticao : REPITA NUM VEZES DOISPONTOS cmds FIM'''
-    p[0] = "for i in range(" + str(p[2]) + "):\n\t" + p[5].replace("\n", "\t") + "\n"
+    p[0] = "for i in range(" + str(p[2]) + "):\n\t" + p[5].replace("\n", "\t")
 
 
 #selecao −→ SE VAR ENTAO cmds FIM | SE NUM ENTAO cmds FIM | SE VAR ENTAO cmds SENAO cmds FIM | SE NUM ENTAO cmds SENAO cmds FIM
+"""
+SE VAR ENTAO cmds FIM tem q virar:
+if var
+    cmds
+(funciona)
+
+SE VAR ENTAO cmds SENAO cmds FIM tem q virar:
+if var
+    cmds
+else
+    cmds
+
+(nao funciona)
+"""
+
 def p_selecao(p):
     '''selecao : SE VAR ENTAO cmds FIM
                | SE NUM ENTAO cmds FIM
@@ -152,11 +167,11 @@ def p_selecao(p):
                | SE NUM ENTAO cmds SENAO cmds FIM'''
     if len(p) == 6:
         # Bloco apenas com "if"
-        p[0] = f"if {p[2]}:\n    " + p[4].replace("\n", "\n    ")
+        p[0] = f"if {p[2]}:\n\t{p[4].replace('\n', '\n\t')}"
     else:
         # Bloco com "if-else"
-        p[0] = (f"if {p[2]}:\n    " + p[4].replace("\n", "\n    ") +
-                "\nelse:\n    " + p[6].replace("\n", "\n    "))
+        p[0] = (f"if {p[2]}:\n\t{p[4].replace('\n', '\n\t')}\n"
+                f"else:\n\t{p[6].replace('\n', '\n\t')}")
 
 
 def p_error(p):
