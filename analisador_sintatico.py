@@ -24,8 +24,6 @@ A condicao deve ser representada por um numero. O numero 0 significa FALSO e qua
 • Multiplique A por B: Funcao para multiplicar A por B. Deve ser implementada no formatos: MULTIPLIQUE A P OR B .
 Onde A e B podem ser variaveis ou numeros"""
 
-#tokens para os terminais da linguagem
-
 # Dicionário de palavras reservadas
 reserved = {
     'FACA': 'FACA',
@@ -78,7 +76,7 @@ def t_NUM(t):
     t.value = int(t.value)  # Converte o valor do token para inteiro
     return t
 
-
+#Funcao para tratar erros
 def t_error(t):
     print(f"Caracter ilegal: '{t.value[0]}' na posição {t.lexpos}")
     t.lexer.skip(1)
@@ -90,10 +88,12 @@ def t_newline(t):
 
 # Definindo a gramatica
 
+#programa −→ cmds
 def p_programa(p):
     '''programa : cmds'''
     p[0] = p[1]
 
+#cmds −→ cmd cmds | cmd
 def p_cmds(p):
     '''cmds : cmd cmds
             | cmd'''
@@ -102,7 +102,7 @@ def p_cmds(p):
     else:
         p[0] = p[1]
 
-
+#cmd −→ atribuicao | impressao | operacao | repeticao | selecao
 def p_cmd(p):
     '''cmd : atribuicao
               | impressao
@@ -133,10 +133,8 @@ def p_operacao(p):
                 | MULTIPLIQUE NUM POR NUM PONTO
                 | MULTIPLIQUE NUM POR VAR PONTO'''
     if p[1] == "SOME":
-        # Atribui o resultado da soma à primeira variável
         p[0] = f"{p[2]} = {p[2]} + {p[4]}\n"
     else:
-        # Atribui o resultado da multiplicação à primeira variável
         p[0] = f"{p[2]} = {p[2]} * {p[4]}\n"
 
 
@@ -153,10 +151,10 @@ def p_selecao(p):
                | SE VAR ENTAO cmds SENAO cmds FIM
                | SE NUM ENTAO cmds SENAO cmds FIM'''
     if len(p) == 6:
-        # Bloco if
+        # Bloco apenas com "if"
         p[0] = f"if {p[2]}:\n    " + p[4].replace("\n", "\n    ")
     else:
-        # Bloco if-else
+        # Bloco com "if-else"
         p[0] = (f"if {p[2]}:\n    " + p[4].replace("\n", "\n    ") +
                 "\nelse:\n    " + p[6].replace("\n", "\n    "))
 
@@ -170,22 +168,27 @@ lexer = lex.lex(debug=True)
 # Constroi o parser
 parser = yacc.yacc()
 
+#contagem de testes realizados
 contTestes = 0
 
+# Realiza os testes para os arquivos file1.mag até file8.mag
 for i in range(1, 9):
+    
+    #montando nomes para os arquivos de entrada e saida
     stringFileMag = "file" + str(i) + ".mag"
     stringFilePy = "file" + str(i) + ".py"
+    
+    #lendo a entrada
     with open(stringFileMag, "r") as file:
         data = file.read()
 
+    # Realiza a análise léxica
     lexer.input(data)
 
-    # Imprime os tokens gerados
-    #for tok in lexer:
-        #print(tok)
-
-    # Faz o parsing do arquivo e imprime o código gerado
+    # Faz a analise sintatica do arquivo .mag
     result = parser.parse(data)
+    
+    #se nao houver erros
     if result:
         print("Código gerado para a file" + str(i) + ".mag:")
         
@@ -202,7 +205,11 @@ for i in range(1, 9):
         contTestes += 1
     else:
         print("Erro ao gerar o código da file" + str(i) + ".mag")
-
+        print("Tokens gerados:")
+        for token in lexer:
+            print(token)
+        print(result)
+        
 if(contTestes == 8):
     print("Todos os testes foram realizados com sucesso!")
 
