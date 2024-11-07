@@ -88,9 +88,6 @@ def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
 
-#Constroi o lexer
-lexer = lex.lex(debug=True)
-
 # Definindo a gramatica
 
 def p_programa(p):
@@ -166,29 +163,47 @@ def p_selecao(p):
 
 def p_error(p):
     print("Erro de sintaxe!")
-
-#fazer isso para todas as files
-with open("file6.mag", "r") as file:
-    data = file.read()
-
-lexer.input(data)
-
-# Imprime os tokens gerados
-for tok in lexer:
-    print(tok)
+    
+#Constroi o lexer
+lexer = lex.lex(debug=True)
 
 # Constroi o parser
 parser = yacc.yacc()
 
-# Faz o parsing do arquivo e imprime o código gerado
-result = parser.parse(data)
-if result:
-    print("Código gerado:")
-    print(result)
-    # Executa o código
-    exec(result)
-else:
-    print("Erro ao gerar o código.")
+contTestes = 0
 
+for i in range(1, 9):
+    stringFileMag = "file" + str(i) + ".mag"
+    stringFilePy = "file" + str(i) + ".py"
+    with open(stringFileMag, "r") as file:
+        data = file.read()
+
+    lexer.input(data)
+
+    # Imprime os tokens gerados
+    #for tok in lexer:
+        #print(tok)
+
+    # Faz o parsing do arquivo e imprime o código gerado
+    result = parser.parse(data)
+    if result:
+        print("Código gerado para a file" + str(i) + ".mag:")
+        
+        #escreve o codigo gerado em um arquivo .py
+        with open(stringFilePy, "w") as file:
+            file.write(result)
+        
+        # Imprime o código gerado
+        print(result)
+        
+        # Executa o código
+        exec(result)
+        
+        contTestes += 1
+    else:
+        print("Erro ao gerar o código da file" + str(i) + ".mag")
+
+if(contTestes == 8):
+    print("Todos os testes foram realizados com sucesso!")
 
     
