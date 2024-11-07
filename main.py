@@ -1,6 +1,7 @@
 #Livia Lutz dos Santos - 2211055 - 3WA
 
-import ply.lex as lex
+from ply.lex import lex
+from ply.yacc import yacc
 
 """A sintaxe da linguagem Matem´agica ´e dada pela gram´atica abaixo:
 programa −→ cmds
@@ -23,50 +24,46 @@ A condicao deve ser representada por um numero. O numero 0 significa FALSO e qua
 • Multiplique A por B: Funcao para multiplicar A por B. Deve ser implementada no formatos: MULTIPLIQUE A P OR B .
 Onde A e B podem ser variaveis ou numeros"""
 
-#Lista dos tokens da linguagem
-tokens = ('SER','SOME','MULTIPLIQUE','FACA','MOSTRE','COM','REPITA','FIM','SE','ENTAO','SENAO','POR','VEZES','VAR','NUM')
+#tokens para os terminais da linguagem
 
-#Palavras reservadas
-reserved = {
-    'FACA':'FACA',
-    'SER':'SER',
-    'MOSTRE':'MOSTRE',
-    'SOME':'SOME',
-    'MULTIPLIQUE':'MULTIPLIQUE',
-    'REPITA':'REPITA',
-    'FIM':'FIM',
-    'SE':'SE',
-    'ENTAO':'ENTAO',
-    'SENAO':'SENAO',
-    'POR':'POR',
-    'VEZES':'VEZES',
-    'VAR':'VAR',
-    'NUM':'NUM'
-}
+tokens = ('FACA', 'SER', 'MOSTRE', 'SOME', 'COM', 'MULTIPLIQUE', 'POR', 'REPITA', 'VEZES', 'FIM', 'SE', 'ENTAO', 'SENAO', 'NUM', 'VAR','PONTO', 'DOISPONTOS')
 
-#Expressoes regulares para os tokens
-def t_VAR(t):
-    r'[a-zA-Z_][a-zA-Z0-9_]*'
-    t.type = reserved.get(t.value,'VAR')
-    return t
+#expressoes regulares para os tokens
+t_FACA = r'FACA'
+t_SER = r'SER'
+t_MOSTRE = r'MOSTRE'
+t_SOME = r'SOME'
+t_COM = r'COM'
+t_MULTIPLIQUE = r'MULTIPLIQUE'
+t_POR = r'POR'
+t_REPITA = r'REPITA'
+t_VEZES = r'VEZES'
+t_FIM = r'FIM'
+t_SE = r'SE'
+t_ENTAO = r'ENTAO'
+t_SENAO = r'SENAO'
+t_PONTO = r'\.'
+t_DOISPONTOS = r':'
 
-def t_NUM(t):
-    r'\d+'
-    t.value = int(t.value)
-    return t
-
+# Ignora espaços em branco e tabulações
 t_ignore = ' \t'
 
-def t_newline(t):
-    r'\n+'
-    t.lexer.lineno += len(t.value)
+# definindo regex para os numeros
+def t_NUM(t):
+    r'\d+'
+    t.value = int(t.value)  # Converte o valor do token para inteiro
     return t
 
-def t_error(t):
-    print("Caracter ilegal '%s'" % t.value[0])
+# definindo regex para as variaveis
+def t_VAR(t):
+    r'[a-zA-Z_][a-zA-Z0-9_]*'
+    return t
+
+def t_error(t): # nos dizer qual caractere ilegal e se tem erro
+    print("Caracter ilegal: ", t.value[0])
     t.lexer.skip(1)
-    return t
-
 
 #Constroi o lexer
 lexer = lex.lex(debug=True)
+
+
