@@ -169,10 +169,21 @@ lexer = lex.lex(debug=True)
 parser = yacc.yacc()
 
 #contagem de testes realizados
-contTestes = 0
+#contTestes = 0
+
+with open("file6.mag","r") as file:
+    data = file.read()
+
+lexer.input(data)
+
+result = parser.parse(data)
+
+print(result)
+
+#exec(result)
 
 # Realiza os testes para os arquivos file1.mag até file8.mag
-for i in range(1, 9):
+"""for i in range(1, 9):
     
     #montando nomes para os arquivos de entrada e saida
     stringFileMag = "file" + str(i) + ".mag"
@@ -211,6 +222,6 @@ for i in range(1, 9):
         print(result)
         
 if(contTestes == 8):
-    print("Todos os testes foram realizados com sucesso!")
+    print("Todos os testes foram realizados com sucesso!")"""
 
     
