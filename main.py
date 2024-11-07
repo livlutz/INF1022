@@ -87,7 +87,7 @@ def t_error(t):
 lexer = lex.lex(debug=True)
 
 #fazer isso para todas as files
-with open("file1.mag", "r") as file:
+with open("file3.mag", "r") as file:
     data = file.read()
 
 lexer.input(data)
@@ -140,14 +140,18 @@ def p_operacao(p):
                 | MULTIPLIQUE NUM POR NUM PONTO
                 | MULTIPLIQUE NUM POR VAR PONTO'''
     if p[1] == "SOME":
-        p[0] = str(p[2]) + " + " + str(p[4]) + "\n"
+        # Atribui o resultado da soma à primeira variável
+        p[0] = f"{p[2]} = {p[2]} + {p[4]}\n"
     else:
-        p[0] = str(p[2]) + " * " + str(p[4]) + "\n"
+        # Atribui o resultado da multiplicação à primeira variável
+        p[0] = f"{p[2]} = {p[2]} * {p[4]}\n"
+
 
 #repeticao −→ REPITA num VEZES : cmds FIM
 def p_repeticao(p):
     '''repeticao : REPITA NUM VEZES DOISPONTOS cmds FIM'''
-    p[0] = "for i in range(" + str(p[2]) + "):\n" + p[5]
+    p[0] = "for i in range(" + str(p[2]) + "):\n\t" + p[5].replace("\n", "\n\t")
+
 
 #selecao −→ SE num ENTAO cmds | SE num ENTAO cmds SENAO cmds | SE num ENTAO cmds SENAO cmds FIM
 def p_selecao(p):
