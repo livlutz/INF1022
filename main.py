@@ -12,7 +12,7 @@ impressao −→ MOSTRE var. | MOSTRE operacao.
 operacao −→ SOME var COM var. | SOME var COM num. |
 SOME num COM num. | MULTIPLIQUE var POR var. | MULTIPLIQUE var POR num. | MULTIPLIQUE num POR num. | MULTIPLIQUE num POR var.
 repeticao −→ REPITA num VEZES : cmds FIM
-selecao −→ SE num ENTAO cmds | SE num ENTAO cmds SENAO cmds | SE num ENTAO cmds SENAO cmds FIM
+selecao --> SE VAR ENTAO cmds FIM| SE NUM ENTAO cmds FIM | SE VAR ENTAO cmds SENAO cmds FIM| SE NUM ENTAO cmds SENAO cmds FIM
 
 Alem disso, a gramatica descrita acima deve ser complementada para que a linguagem Matemagica seja capaz de executar comandos do tipo:
 
@@ -82,10 +82,14 @@ def t_NUM(t):
 def t_error(t):
     print(f"Caracter ilegal: '{t.value[0]}' na posição {t.lexpos}")
     t.lexer.skip(1)
+    
+# Ignora novas linhas
+def t_newline(t):
+    r'\n+'
+    t.lexer.lineno += len(t.value)
 
 #Constroi o lexer
 lexer = lex.lex(debug=True)
-
 
 # Definindo a gramatica
 
@@ -144,14 +148,18 @@ def p_repeticao(p):
     p[0] = "for i in range(" + str(p[2]) + "):\n\t" + p[5].replace("\n", "\t") + "\n"
 
 
-#selecao −→ SE num ENTAO cmds | SE num ENTAO cmds SENAO cmds | SE num ENTAO cmds SENAO cmds FIM
+#selecao −→ SE VAR ENTAO cmds FIM | SE NUM ENTAO cmds FIM | SE VAR ENTAO cmds SENAO cmds FIM | SE NUM ENTAO cmds SENAO cmds FIM
 def p_selecao(p):
-    '''selecao : SE NUM ENTAO cmds FIM
+    '''selecao : SE VAR ENTAO cmds FIM
+               | SE NUM ENTAO cmds FIM
+               | SE VAR ENTAO cmds SENAO cmds FIM
                | SE NUM ENTAO cmds SENAO cmds FIM'''
     if len(p) == 6:
-        p[0] = f"if {p[2]}:\n" + p[4]
+        # Gerar apenas uma indentação para o bloco interno
+        p[0] = f"if {p[2]}:\n    " + p[4].replace("\n", "\n    ")
     else:
-        p[0] = f"if {p[2]}:\n" + p[4] + "else:\n" + p[6]
+        # Gerar apenas uma indentação para os blocos internos do if e else
+        p[0] = f"if {p[2]}:\n    " + p[4].replace("\n", "\n    ") + "\nelse:\n    " + p[6].replace("\n", "\n    ")
 
 
 def p_error(p):
@@ -172,10 +180,13 @@ parser = yacc.yacc()
 
 # Faz o parsing do arquivo e imprime o código gerado
 result = parser.parse(data)
-print("Código gerado:")
-print(result)
+if result:
+    print("Código gerado:")
+    print(result)
+    # Executa o código
+    exec(result)
+else:
+    print("Erro ao gerar o código.")
 
-# Executa o código
-exec(result)
 
     
