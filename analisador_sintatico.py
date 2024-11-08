@@ -145,20 +145,7 @@ def p_repeticao(p):
 
 
 #selecao −→ SE VAR ENTAO cmds FIM | SE NUM ENTAO cmds FIM | SE VAR ENTAO cmds SENAO cmds FIM | SE NUM ENTAO cmds SENAO cmds FIM
-"""
-SE VAR ENTAO cmds FIM tem q virar:
-if var
-    cmds
-(funciona)
-
-SE VAR ENTAO cmds SENAO cmds FIM tem q virar:
-if var
-    cmds
-else
-    cmds
-
-(nao funciona)
-"""
+#no else tem q ter um \n para pular linha e voltar a identacao
 
 def p_selecao(p):
     '''selecao : SE VAR ENTAO cmds FIM
@@ -166,12 +153,9 @@ def p_selecao(p):
                | SE VAR ENTAO cmds SENAO cmds FIM
                | SE NUM ENTAO cmds SENAO cmds FIM'''
     if len(p) == 6:
-        # Bloco apenas com "if"
-        p[0] = f"if {p[2]}:\n\t{p[4].replace('\n', '\n\t')}"
+        p[0] = f"if {p[2]}:\n\t" + p[4].replace("\n", "\n\t")
     else:
-        # Bloco com "if-else"
-        p[0] = (f"if {p[2]}:\n\t{p[4].replace('\n', '\n\t')}\n"
-                f"else:\n\t{p[6].replace('\n', '\n\t')}")
+        p[0] = f"if {p[2]}:\n\t" + p[4].replace("\n", "\n\t") + "\nelse:\n\t" + p[6].replace("\n", "\n\t")
 
 
 def p_error(p):
@@ -194,6 +178,7 @@ lexer.input(data)
 result = parser.parse(data)
 
 print(result)
+
 
 #exec(result)
 
