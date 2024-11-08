@@ -152,7 +152,7 @@ def p_selecao(p):
                | SE NUM ENTAO cmds FIM
                | SE VAR ENTAO cmds SENAO cmds FIM
                | SE NUM ENTAO cmds SENAO cmds FIM'''
-    if len(p) == 6:
+    if 'SENAO' not in p:
         p[0] = f"if {p[2]}:\n\t" + p[4].replace("\n", "\n\t")
     else:
         p[0] = f"if {p[2]}:\n\t" + p[4].replace("\n", "\n\t") + "\nelse:\n\t" + p[6].replace("\n", "\n\t")
