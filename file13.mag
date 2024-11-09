@@ -1,4 +1,14 @@
-FACA numero SER 0.
-SE numero ENTAO
-    MOSTRE numero.
+FACA x SER 2.
+FACA y SER 3.
+REPITA 3 VEZES:
+    SE x ENTAO
+        MOSTRE x.
+        SE y ENTAO
+            MOSTRE y.
+        FIM
+    SENAO
+        MOSTRE 0.
+    FIM
+    SOME x COM 1.
+    MULTIPLIQUE y POR x.
 FIM

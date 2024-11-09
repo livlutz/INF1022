@@ -22,6 +22,125 @@ o programa gere um arquivo parser.out que contenha a gramática usada, a árvore
 a partir da gramática e regex da linguagem passada para o lexyacc para fins de verificação do raciocínio durante a montagem
 do trabalho e como material extra para este relatório.
 
+O que funciona :
+
+Todas as operações e comandos funcionam. 
+
+O que não funciona :
+
+Tudo que foi pedido no enunciado do trabalho e implementado funciona, não tive problemas com comandos
+testados que não funcionam.
+
+Testes utilizados :
+
+Listarei (em ordem de teste) o conteúdo dos arquivos de testes .mag que utilizei
+
+FACA x SER 10.
+MOSTRE x .
+
+FACA a SER 3.
+FACA b SER 7.
+SOME a COM b .
+MOSTRE a .
+
+FACA total SER 0.
+REPITA 5 VEZES :
+SOME total COM 2.
+FIM
+MOSTRE total .
+
+FACA total SER 0.
+REPITA 5 VEZES :
+SOME total COM 2.
+FIM
+MOSTRE total .
+
+FACA n SER 4.
+SE n ENTAO
+MOSTRE n .
+FIM
+
+FACA num SER 0.
+SE num ENTAO
+MOSTRE num .
+SENAO
+MOSTRE 10.
+FIM
+
+FACA x SER 3.
+FACA y SER 5.
+MULTIPLIQUE x POR y .
+MOSTRE x .
+
+FACA resultado SER 1.
+REPITA 3 VEZES :
+MULTIPLIQUE resultado POR 2.
+FIM
+MOSTRE resultado .
+
+FACA x SER 5.
+FACA y SER 10.
+MOSTRE x.
+MOSTRE y.
+MOSTRE 15.
+
+FACA a SER 3.
+FACA b SER 4.
+SOME a COM b.
+MULTIPLIQUE a POR b.
+MOSTRE a.
+MOSTRE b.
+
+FACA contador SER 1.
+REPITA 5 VEZES:
+    MOSTRE contador.
+    SOME contador COM 1.
+FIM
+
+FACA numero SER 0.
+SE numero ENTAO
+    MOSTRE numero.
+FIM
+
+FACA x SER 2.
+FACA y SER 3.
+REPITA 3 VEZES:
+    SE x ENTAO
+        MOSTRE x.
+        SE y ENTAO
+            MOSTRE y.
+        FIM
+    SENAO
+        MOSTRE 0.
+    FIM
+    SOME x COM 1.
+    MULTIPLIQUE y POR x.
+FIM
+
+FACA resultado SER 1.
+MULTIPLIQUE resultado POR 5.
+SOME resultado COM 10.
+MOSTRE resultado.
+
+FACA a SER 10.
+FACA b SER 20.
+MULTIPLIQUE a POR b.
+SOME b COM a.
+MOSTRE a.
+MOSTRE b.
+REPITA 2 VEZES:
+    SE a ENTAO
+        MULTIPLIQUE a POR b.
+    SENAO
+        SOME b COM a.
+    FIM
+FIM
+MOSTRE a.
+MOSTRE b.
+
+
+Maneira de utilizar os testes :
+
 Fiz um loop que, para todos os arquivos de teste que foram tanto sugeridos no enunciado do trabalho quanto gerados por mim, pega cada
 um desses arquivos .mag de teste de entrada e passa para o lexer e o parser e gera um arquivo .py para cada teste, imprimindo e executando
 o código gerado a partir da análise léxica e sintática da entrada passada, em caso de erro, imprime uma mensagem de erro, os tokens gerados e
@@ -30,13 +149,8 @@ em qual token o erro foi encontrado.
 Também implementei um contador de testes que no final da execução do loop descrito acima, verifica se a quantidade de testes
 bem-sucedidos é igual a quantidade de testes feitos, indicando se todos os testes funcionam ou não.
 
-O que funciona :
-
-O que não funciona :
-
-Testes utilizados :
-
-Maneira de utilizar os testes :
+(Para fins de teste, por favor dar unzip nos arquivos .mag que enviarei no ead e colocar na mesma pasta que o 
+arquivo analisador_sintatico.py e rodar o código normalmente)
 
 Gramática final usada :
 
@@ -61,3 +175,1042 @@ selecao −→ SE VAR ENTAO cmds FIM | SE NUM ENTAO cmds FIM | SE VAR ENTAO cmds
 Funcionalidade adicional : 
 
 Nenhuma funcionalidade adicional foi implementada
+
+Saída do arquivo parser.out : 
+
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> programa
+Rule 1     programa -> cmds
+Rule 2     cmds -> cmd cmds
+Rule 3     cmds -> cmd
+Rule 4     cmd -> atribuicao
+Rule 5     cmd -> impressao
+Rule 6     cmd -> operacao
+Rule 7     cmd -> repeticao
+Rule 8     cmd -> selecao
+Rule 9     atribuicao -> FACA VAR SER NUM PONTO
+Rule 10    impressao -> MOSTRE VAR PONTO
+Rule 11    impressao -> MOSTRE operacao PONTO
+Rule 12    impressao -> MOSTRE NUM PONTO
+Rule 13    operacao -> SOME VAR COM VAR PONTO
+Rule 14    operacao -> SOME VAR COM NUM PONTO
+Rule 15    operacao -> SOME NUM COM NUM PONTO
+Rule 16    operacao -> SOME NUM COM VAR PONTO
+Rule 17    operacao -> MULTIPLIQUE VAR POR VAR PONTO
+Rule 18    operacao -> MULTIPLIQUE VAR POR NUM PONTO
+Rule 19    operacao -> MULTIPLIQUE NUM POR NUM PONTO
+Rule 20    operacao -> MULTIPLIQUE NUM POR VAR PONTO
+Rule 21    repeticao -> REPITA NUM VEZES DOISPONTOS cmds FIM
+Rule 22    selecao -> SE VAR ENTAO cmds FIM
+Rule 23    selecao -> SE NUM ENTAO cmds FIM
+Rule 24    selecao -> SE VAR ENTAO cmds SENAO cmds FIM
+Rule 25    selecao -> SE NUM ENTAO cmds SENAO cmds FIM
+
+Terminals, with rules where they appear
+
+COM                  : 13 14 15 16
+DOISPONTOS           : 21
+ENTAO                : 22 23 24 25
+FACA                 : 9
+FIM                  : 21 22 23 24 25
+MOSTRE               : 10 11 12
+MULTIPLIQUE          : 17 18 19 20
+NUM                  : 9 12 14 15 15 16 18 19 19 20 21 23 25
+PONTO                : 9 10 11 12 13 14 15 16 17 18 19 20
+POR                  : 17 18 19 20
+REPITA               : 21
+SE                   : 22 23 24 25
+SENAO                : 24 25
+SER                  : 9
+SOME                 : 13 14 15 16
+VAR                  : 9 10 13 13 14 16 17 17 18 20 22 24
+VEZES                : 21
+error                : 
+
+Nonterminals, with rules where they appear
+
+atribuicao           : 4
+cmd                  : 2 3
+cmds                 : 1 2 21 22 23 24 24 25 25
+impressao            : 5
+operacao             : 6 11
+programa             : 0
+repeticao            : 7
+selecao              : 8
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . programa
+    (1) programa -> . cmds
+    (2) cmds -> . cmd cmds
+    (3) cmds -> . cmd
+    (4) cmd -> . atribuicao
+    (5) cmd -> . impressao
+    (6) cmd -> . operacao
+    (7) cmd -> . repeticao
+    (8) cmd -> . selecao
+    (9) atribuicao -> . FACA VAR SER NUM PONTO
+    (10) impressao -> . MOSTRE VAR PONTO
+    (11) impressao -> . MOSTRE operacao PONTO
+    (12) impressao -> . MOSTRE NUM PONTO
+    (13) operacao -> . SOME VAR COM VAR PONTO
+    (14) operacao -> . SOME VAR COM NUM PONTO
+    (15) operacao -> . SOME NUM COM NUM PONTO
+    (16) operacao -> . SOME NUM COM VAR PONTO
+    (17) operacao -> . MULTIPLIQUE VAR POR VAR PONTO
+    (18) operacao -> . MULTIPLIQUE VAR POR NUM PONTO
+    (19) operacao -> . MULTIPLIQUE NUM POR NUM PONTO
+    (20) operacao -> . MULTIPLIQUE NUM POR VAR PONTO
+    (21) repeticao -> . REPITA NUM VEZES DOISPONTOS cmds FIM
+    (22) selecao -> . SE VAR ENTAO cmds FIM
+    (23) selecao -> . SE NUM ENTAO cmds FIM
+    (24) selecao -> . SE VAR ENTAO cmds SENAO cmds FIM
+    (25) selecao -> . SE NUM ENTAO cmds SENAO cmds FIM
+
+    FACA            shift and go to state 9
+    MOSTRE          shift and go to state 10
+    SOME            shift and go to state 11
+    MULTIPLIQUE     shift and go to state 12
+    REPITA          shift and go to state 13
+    SE              shift and go to state 14
+
+    programa                       shift and go to state 1
+    cmds                           shift and go to state 2
+    cmd                            shift and go to state 3
+    atribuicao                     shift and go to state 4
+    impressao                      shift and go to state 5
+    operacao                       shift and go to state 6
+    repeticao                      shift and go to state 7
+    selecao                        shift and go to state 8
+
+state 1
+
+    (0) S' -> programa .
+
+
+
+state 2
+
+    (1) programa -> cmds .
+
+    $end            reduce using rule 1 (programa -> cmds .)
+
+
+state 3
+
+    (2) cmds -> cmd . cmds
+    (3) cmds -> cmd .
+    (2) cmds -> . cmd cmds
+    (3) cmds -> . cmd
+    (4) cmd -> . atribuicao
+    (5) cmd -> . impressao
+    (6) cmd -> . operacao
+    (7) cmd -> . repeticao
+    (8) cmd -> . selecao
+    (9) atribuicao -> . FACA VAR SER NUM PONTO
+    (10) impressao -> . MOSTRE VAR PONTO
+    (11) impressao -> . MOSTRE operacao PONTO
+    (12) impressao -> . MOSTRE NUM PONTO
+    (13) operacao -> . SOME VAR COM VAR PONTO
+    (14) operacao -> . SOME VAR COM NUM PONTO
+    (15) operacao -> . SOME NUM COM NUM PONTO
+    (16) operacao -> . SOME NUM COM VAR PONTO
+    (17) operacao -> . MULTIPLIQUE VAR POR VAR PONTO
+    (18) operacao -> . MULTIPLIQUE VAR POR NUM PONTO
+    (19) operacao -> . MULTIPLIQUE NUM POR NUM PONTO
+    (20) operacao -> . MULTIPLIQUE NUM POR VAR PONTO
+    (21) repeticao -> . REPITA NUM VEZES DOISPONTOS cmds FIM
+    (22) selecao -> . SE VAR ENTAO cmds FIM
+    (23) selecao -> . SE NUM ENTAO cmds FIM
+    (24) selecao -> . SE VAR ENTAO cmds SENAO cmds FIM
+    (25) selecao -> . SE NUM ENTAO cmds SENAO cmds FIM
+
+    $end            reduce using rule 3 (cmds -> cmd .)
+    FIM             reduce using rule 3 (cmds -> cmd .)
+    SENAO           reduce using rule 3 (cmds -> cmd .)
+    FACA            shift and go to state 9
+    MOSTRE          shift and go to state 10
+    SOME            shift and go to state 11
+    MULTIPLIQUE     shift and go to state 12
+    REPITA          shift and go to state 13
+    SE              shift and go to state 14
+
+    cmd                            shift and go to state 3
+    cmds                           shift and go to state 15
+    atribuicao                     shift and go to state 4
+    impressao                      shift and go to state 5
+    operacao                       shift and go to state 6
+    repeticao                      shift and go to state 7
+    selecao                        shift and go to state 8
+
+state 4
+
+    (4) cmd -> atribuicao .
+
+    FACA            reduce using rule 4 (cmd -> atribuicao .)
+    MOSTRE          reduce using rule 4 (cmd -> atribuicao .)
+    SOME            reduce using rule 4 (cmd -> atribuicao .)
+    MULTIPLIQUE     reduce using rule 4 (cmd -> atribuicao .)
+    REPITA          reduce using rule 4 (cmd -> atribuicao .)
+    SE              reduce using rule 4 (cmd -> atribuicao .)
+    $end            reduce using rule 4 (cmd -> atribuicao .)
+    FIM             reduce using rule 4 (cmd -> atribuicao .)
+    SENAO           reduce using rule 4 (cmd -> atribuicao .)
+
+
+state 5
+
+    (5) cmd -> impressao .
+
+    FACA            reduce using rule 5 (cmd -> impressao .)
+    MOSTRE          reduce using rule 5 (cmd -> impressao .)
+    SOME            reduce using rule 5 (cmd -> impressao .)
+    MULTIPLIQUE     reduce using rule 5 (cmd -> impressao .)
+    REPITA          reduce using rule 5 (cmd -> impressao .)
+    SE              reduce using rule 5 (cmd -> impressao .)
+    $end            reduce using rule 5 (cmd -> impressao .)
+    FIM             reduce using rule 5 (cmd -> impressao .)
+    SENAO           reduce using rule 5 (cmd -> impressao .)
+
+
+state 6
+
+    (6) cmd -> operacao .
+
+    FACA            reduce using rule 6 (cmd -> operacao .)
+    MOSTRE          reduce using rule 6 (cmd -> operacao .)
+    SOME            reduce using rule 6 (cmd -> operacao .)
+    MULTIPLIQUE     reduce using rule 6 (cmd -> operacao .)
+    REPITA          reduce using rule 6 (cmd -> operacao .)
+    SE              reduce using rule 6 (cmd -> operacao .)
+    $end            reduce using rule 6 (cmd -> operacao .)
+    FIM             reduce using rule 6 (cmd -> operacao .)
+    SENAO           reduce using rule 6 (cmd -> operacao .)
+
+
+state 7
+
+    (7) cmd -> repeticao .
+
+    FACA            reduce using rule 7 (cmd -> repeticao .)
+    MOSTRE          reduce using rule 7 (cmd -> repeticao .)
+    SOME            reduce using rule 7 (cmd -> repeticao .)
+    MULTIPLIQUE     reduce using rule 7 (cmd -> repeticao .)
+    REPITA          reduce using rule 7 (cmd -> repeticao .)
+    SE              reduce using rule 7 (cmd -> repeticao .)
+    $end            reduce using rule 7 (cmd -> repeticao .)
+    FIM             reduce using rule 7 (cmd -> repeticao .)
+    SENAO           reduce using rule 7 (cmd -> repeticao .)
+
+
+state 8
+
+    (8) cmd -> selecao .
+
+    FACA            reduce using rule 8 (cmd -> selecao .)
+    MOSTRE          reduce using rule 8 (cmd -> selecao .)
+    SOME            reduce using rule 8 (cmd -> selecao .)
+    MULTIPLIQUE     reduce using rule 8 (cmd -> selecao .)
+    REPITA          reduce using rule 8 (cmd -> selecao .)
+    SE              reduce using rule 8 (cmd -> selecao .)
+    $end            reduce using rule 8 (cmd -> selecao .)
+    FIM             reduce using rule 8 (cmd -> selecao .)
+    SENAO           reduce using rule 8 (cmd -> selecao .)
+
+
+state 9
+
+    (9) atribuicao -> FACA . VAR SER NUM PONTO
+
+    VAR             shift and go to state 16
+
+
+state 10
+
+    (10) impressao -> MOSTRE . VAR PONTO
+    (11) impressao -> MOSTRE . operacao PONTO
+    (12) impressao -> MOSTRE . NUM PONTO
+    (13) operacao -> . SOME VAR COM VAR PONTO
+    (14) operacao -> . SOME VAR COM NUM PONTO
+    (15) operacao -> . SOME NUM COM NUM PONTO
+    (16) operacao -> . SOME NUM COM VAR PONTO
+    (17) operacao -> . MULTIPLIQUE VAR POR VAR PONTO
+    (18) operacao -> . MULTIPLIQUE VAR POR NUM PONTO
+    (19) operacao -> . MULTIPLIQUE NUM POR NUM PONTO
+    (20) operacao -> . MULTIPLIQUE NUM POR VAR PONTO
+
+    VAR             shift and go to state 17
+    NUM             shift and go to state 19
+    SOME            shift and go to state 11
+    MULTIPLIQUE     shift and go to state 12
+
+    operacao                       shift and go to state 18
+
+state 11
+
+    (13) operacao -> SOME . VAR COM VAR PONTO
+    (14) operacao -> SOME . VAR COM NUM PONTO
+    (15) operacao -> SOME . NUM COM NUM PONTO
+    (16) operacao -> SOME . NUM COM VAR PONTO
+
+    VAR             shift and go to state 20
+    NUM             shift and go to state 21
+
+
+state 12
+
+    (17) operacao -> MULTIPLIQUE . VAR POR VAR PONTO
+    (18) operacao -> MULTIPLIQUE . VAR POR NUM PONTO
+    (19) operacao -> MULTIPLIQUE . NUM POR NUM PONTO
+    (20) operacao -> MULTIPLIQUE . NUM POR VAR PONTO
+
+    VAR             shift and go to state 22
+    NUM             shift and go to state 23
+
+
+state 13
+
+    (21) repeticao -> REPITA . NUM VEZES DOISPONTOS cmds FIM
+
+    NUM             shift and go to state 24
+
+
+state 14
+
+    (22) selecao -> SE . VAR ENTAO cmds FIM
+    (23) selecao -> SE . NUM ENTAO cmds FIM
+    (24) selecao -> SE . VAR ENTAO cmds SENAO cmds FIM
+    (25) selecao -> SE . NUM ENTAO cmds SENAO cmds FIM
+
+    VAR             shift and go to state 25
+    NUM             shift and go to state 26
+
+
+state 15
+
+    (2) cmds -> cmd cmds .
+
+    $end            reduce using rule 2 (cmds -> cmd cmds .)
+    FIM             reduce using rule 2 (cmds -> cmd cmds .)
+    SENAO           reduce using rule 2 (cmds -> cmd cmds .)
+
+
+state 16
+
+    (9) atribuicao -> FACA VAR . SER NUM PONTO
+
+    SER             shift and go to state 27
+
+
+state 17
+
+    (10) impressao -> MOSTRE VAR . PONTO
+
+    PONTO           shift and go to state 28
+
+
+state 18
+
+    (11) impressao -> MOSTRE operacao . PONTO
+
+    PONTO           shift and go to state 29
+
+
+state 19
+
+    (12) impressao -> MOSTRE NUM . PONTO
+
+    PONTO           shift and go to state 30
+
+
+state 20
+
+    (13) operacao -> SOME VAR . COM VAR PONTO
+    (14) operacao -> SOME VAR . COM NUM PONTO
+
+    COM             shift and go to state 31
+
+
+state 21
+
+    (15) operacao -> SOME NUM . COM NUM PONTO
+    (16) operacao -> SOME NUM . COM VAR PONTO
+
+    COM             shift and go to state 32
+
+
+state 22
+
+    (17) operacao -> MULTIPLIQUE VAR . POR VAR PONTO
+    (18) operacao -> MULTIPLIQUE VAR . POR NUM PONTO
+
+    POR             shift and go to state 33
+
+
+state 23
+
+    (19) operacao -> MULTIPLIQUE NUM . POR NUM PONTO
+    (20) operacao -> MULTIPLIQUE NUM . POR VAR PONTO
+
+    POR             shift and go to state 34
+
+
+state 24
+
+    (21) repeticao -> REPITA NUM . VEZES DOISPONTOS cmds FIM
+
+    VEZES           shift and go to state 35
+
+
+state 25
+
+    (22) selecao -> SE VAR . ENTAO cmds FIM
+    (24) selecao -> SE VAR . ENTAO cmds SENAO cmds FIM
+
+    ENTAO           shift and go to state 36
+
+
+state 26
+
+    (23) selecao -> SE NUM . ENTAO cmds FIM
+    (25) selecao -> SE NUM . ENTAO cmds SENAO cmds FIM
+
+    ENTAO           shift and go to state 37
+
+
+state 27
+
+    (9) atribuicao -> FACA VAR SER . NUM PONTO
+
+    NUM             shift and go to state 38
+
+
+state 28
+
+    (10) impressao -> MOSTRE VAR PONTO .
+
+    FACA            reduce using rule 10 (impressao -> MOSTRE VAR PONTO .)
+    MOSTRE          reduce using rule 10 (impressao -> MOSTRE VAR PONTO .)
+    SOME            reduce using rule 10 (impressao -> MOSTRE VAR PONTO .)
+    MULTIPLIQUE     reduce using rule 10 (impressao -> MOSTRE VAR PONTO .)
+    REPITA          reduce using rule 10 (impressao -> MOSTRE VAR PONTO .)
+    SE              reduce using rule 10 (impressao -> MOSTRE VAR PONTO .)
+    $end            reduce using rule 10 (impressao -> MOSTRE VAR PONTO .)
+    FIM             reduce using rule 10 (impressao -> MOSTRE VAR PONTO .)
+    SENAO           reduce using rule 10 (impressao -> MOSTRE VAR PONTO .)
+
+
+state 29
+
+    (11) impressao -> MOSTRE operacao PONTO .
+
+    FACA            reduce using rule 11 (impressao -> MOSTRE operacao PONTO .)
+    MOSTRE          reduce using rule 11 (impressao -> MOSTRE operacao PONTO .)
+    SOME            reduce using rule 11 (impressao -> MOSTRE operacao PONTO .)
+    MULTIPLIQUE     reduce using rule 11 (impressao -> MOSTRE operacao PONTO .)
+    REPITA          reduce using rule 11 (impressao -> MOSTRE operacao PONTO .)
+    SE              reduce using rule 11 (impressao -> MOSTRE operacao PONTO .)
+    $end            reduce using rule 11 (impressao -> MOSTRE operacao PONTO .)
+    FIM             reduce using rule 11 (impressao -> MOSTRE operacao PONTO .)
+    SENAO           reduce using rule 11 (impressao -> MOSTRE operacao PONTO .)
+
+
+state 30
+
+    (12) impressao -> MOSTRE NUM PONTO .
+
+    FACA            reduce using rule 12 (impressao -> MOSTRE NUM PONTO .)
+    MOSTRE          reduce using rule 12 (impressao -> MOSTRE NUM PONTO .)
+    SOME            reduce using rule 12 (impressao -> MOSTRE NUM PONTO .)
+    MULTIPLIQUE     reduce using rule 12 (impressao -> MOSTRE NUM PONTO .)
+    REPITA          reduce using rule 12 (impressao -> MOSTRE NUM PONTO .)
+    SE              reduce using rule 12 (impressao -> MOSTRE NUM PONTO .)
+    $end            reduce using rule 12 (impressao -> MOSTRE NUM PONTO .)
+    FIM             reduce using rule 12 (impressao -> MOSTRE NUM PONTO .)
+    SENAO           reduce using rule 12 (impressao -> MOSTRE NUM PONTO .)
+
+
+state 31
+
+    (13) operacao -> SOME VAR COM . VAR PONTO
+    (14) operacao -> SOME VAR COM . NUM PONTO
+
+    VAR             shift and go to state 39
+    NUM             shift and go to state 40
+
+
+state 32
+
+    (15) operacao -> SOME NUM COM . NUM PONTO
+    (16) operacao -> SOME NUM COM . VAR PONTO
+
+    NUM             shift and go to state 41
+    VAR             shift and go to state 42
+
+
+state 33
+
+    (17) operacao -> MULTIPLIQUE VAR POR . VAR PONTO
+    (18) operacao -> MULTIPLIQUE VAR POR . NUM PONTO
+
+    VAR             shift and go to state 43
+    NUM             shift and go to state 44
+
+
+state 34
+
+    (19) operacao -> MULTIPLIQUE NUM POR . NUM PONTO
+    (20) operacao -> MULTIPLIQUE NUM POR . VAR PONTO
+
+    NUM             shift and go to state 45
+    VAR             shift and go to state 46
+
+
+state 35
+
+    (21) repeticao -> REPITA NUM VEZES . DOISPONTOS cmds FIM
+
+    DOISPONTOS      shift and go to state 47
+
+
+state 36
+
+    (22) selecao -> SE VAR ENTAO . cmds FIM
+    (24) selecao -> SE VAR ENTAO . cmds SENAO cmds FIM
+    (2) cmds -> . cmd cmds
+    (3) cmds -> . cmd
+    (4) cmd -> . atribuicao
+    (5) cmd -> . impressao
+    (6) cmd -> . operacao
+    (7) cmd -> . repeticao
+    (8) cmd -> . selecao
+    (9) atribuicao -> . FACA VAR SER NUM PONTO
+    (10) impressao -> . MOSTRE VAR PONTO
+    (11) impressao -> . MOSTRE operacao PONTO
+    (12) impressao -> . MOSTRE NUM PONTO
+    (13) operacao -> . SOME VAR COM VAR PONTO
+    (14) operacao -> . SOME VAR COM NUM PONTO
+    (15) operacao -> . SOME NUM COM NUM PONTO
+    (16) operacao -> . SOME NUM COM VAR PONTO
+    (17) operacao -> . MULTIPLIQUE VAR POR VAR PONTO
+    (18) operacao -> . MULTIPLIQUE VAR POR NUM PONTO
+    (19) operacao -> . MULTIPLIQUE NUM POR NUM PONTO
+    (20) operacao -> . MULTIPLIQUE NUM POR VAR PONTO
+    (21) repeticao -> . REPITA NUM VEZES DOISPONTOS cmds FIM
+    (22) selecao -> . SE VAR ENTAO cmds FIM
+    (23) selecao -> . SE NUM ENTAO cmds FIM
+    (24) selecao -> . SE VAR ENTAO cmds SENAO cmds FIM
+    (25) selecao -> . SE NUM ENTAO cmds SENAO cmds FIM
+
+    FACA            shift and go to state 9
+    MOSTRE          shift and go to state 10
+    SOME            shift and go to state 11
+    MULTIPLIQUE     shift and go to state 12
+    REPITA          shift and go to state 13
+    SE              shift and go to state 14
+
+    cmds                           shift and go to state 48
+    cmd                            shift and go to state 3
+    atribuicao                     shift and go to state 4
+    impressao                      shift and go to state 5
+    operacao                       shift and go to state 6
+    repeticao                      shift and go to state 7
+    selecao                        shift and go to state 8
+
+state 37
+
+    (23) selecao -> SE NUM ENTAO . cmds FIM
+    (25) selecao -> SE NUM ENTAO . cmds SENAO cmds FIM
+    (2) cmds -> . cmd cmds
+    (3) cmds -> . cmd
+    (4) cmd -> . atribuicao
+    (5) cmd -> . impressao
+    (6) cmd -> . operacao
+    (7) cmd -> . repeticao
+    (8) cmd -> . selecao
+    (9) atribuicao -> . FACA VAR SER NUM PONTO
+    (10) impressao -> . MOSTRE VAR PONTO
+    (11) impressao -> . MOSTRE operacao PONTO
+    (12) impressao -> . MOSTRE NUM PONTO
+    (13) operacao -> . SOME VAR COM VAR PONTO
+    (14) operacao -> . SOME VAR COM NUM PONTO
+    (15) operacao -> . SOME NUM COM NUM PONTO
+    (16) operacao -> . SOME NUM COM VAR PONTO
+    (17) operacao -> . MULTIPLIQUE VAR POR VAR PONTO
+    (18) operacao -> . MULTIPLIQUE VAR POR NUM PONTO
+    (19) operacao -> . MULTIPLIQUE NUM POR NUM PONTO
+    (20) operacao -> . MULTIPLIQUE NUM POR VAR PONTO
+    (21) repeticao -> . REPITA NUM VEZES DOISPONTOS cmds FIM
+    (22) selecao -> . SE VAR ENTAO cmds FIM
+    (23) selecao -> . SE NUM ENTAO cmds FIM
+    (24) selecao -> . SE VAR ENTAO cmds SENAO cmds FIM
+    (25) selecao -> . SE NUM ENTAO cmds SENAO cmds FIM
+
+    FACA            shift and go to state 9
+    MOSTRE          shift and go to state 10
+    SOME            shift and go to state 11
+    MULTIPLIQUE     shift and go to state 12
+    REPITA          shift and go to state 13
+    SE              shift and go to state 14
+
+    cmds                           shift and go to state 49
+    cmd                            shift and go to state 3
+    atribuicao                     shift and go to state 4
+    impressao                      shift and go to state 5
+    operacao                       shift and go to state 6
+    repeticao                      shift and go to state 7
+    selecao                        shift and go to state 8
+
+state 38
+
+    (9) atribuicao -> FACA VAR SER NUM . PONTO
+
+    PONTO           shift and go to state 50
+
+
+state 39
+
+    (13) operacao -> SOME VAR COM VAR . PONTO
+
+    PONTO           shift and go to state 51
+
+
+state 40
+
+    (14) operacao -> SOME VAR COM NUM . PONTO
+
+    PONTO           shift and go to state 52
+
+
+state 41
+
+    (15) operacao -> SOME NUM COM NUM . PONTO
+
+    PONTO           shift and go to state 53
+
+
+state 42
+
+    (16) operacao -> SOME NUM COM VAR . PONTO
+
+    PONTO           shift and go to state 54
+
+
+state 43
+
+    (17) operacao -> MULTIPLIQUE VAR POR VAR . PONTO
+
+    PONTO           shift and go to state 55
+
+
+state 44
+
+    (18) operacao -> MULTIPLIQUE VAR POR NUM . PONTO
+
+    PONTO           shift and go to state 56
+
+
+state 45
+
+    (19) operacao -> MULTIPLIQUE NUM POR NUM . PONTO
+
+    PONTO           shift and go to state 57
+
+
+state 46
+
+    (20) operacao -> MULTIPLIQUE NUM POR VAR . PONTO
+
+    PONTO           shift and go to state 58
+
+
+state 47
+
+    (21) repeticao -> REPITA NUM VEZES DOISPONTOS . cmds FIM
+    (2) cmds -> . cmd cmds
+    (3) cmds -> . cmd
+    (4) cmd -> . atribuicao
+    (5) cmd -> . impressao
+    (6) cmd -> . operacao
+    (7) cmd -> . repeticao
+    (8) cmd -> . selecao
+    (9) atribuicao -> . FACA VAR SER NUM PONTO
+    (10) impressao -> . MOSTRE VAR PONTO
+    (11) impressao -> . MOSTRE operacao PONTO
+    (12) impressao -> . MOSTRE NUM PONTO
+    (13) operacao -> . SOME VAR COM VAR PONTO
+    (14) operacao -> . SOME VAR COM NUM PONTO
+    (15) operacao -> . SOME NUM COM NUM PONTO
+    (16) operacao -> . SOME NUM COM VAR PONTO
+    (17) operacao -> . MULTIPLIQUE VAR POR VAR PONTO
+    (18) operacao -> . MULTIPLIQUE VAR POR NUM PONTO
+    (19) operacao -> . MULTIPLIQUE NUM POR NUM PONTO
+    (20) operacao -> . MULTIPLIQUE NUM POR VAR PONTO
+    (21) repeticao -> . REPITA NUM VEZES DOISPONTOS cmds FIM
+    (22) selecao -> . SE VAR ENTAO cmds FIM
+    (23) selecao -> . SE NUM ENTAO cmds FIM
+    (24) selecao -> . SE VAR ENTAO cmds SENAO cmds FIM
+    (25) selecao -> . SE NUM ENTAO cmds SENAO cmds FIM
+
+    FACA            shift and go to state 9
+    MOSTRE          shift and go to state 10
+    SOME            shift and go to state 11
+    MULTIPLIQUE     shift and go to state 12
+    REPITA          shift and go to state 13
+    SE              shift and go to state 14
+
+    cmds                           shift and go to state 59
+    cmd                            shift and go to state 3
+    atribuicao                     shift and go to state 4
+    impressao                      shift and go to state 5
+    operacao                       shift and go to state 6
+    repeticao                      shift and go to state 7
+    selecao                        shift and go to state 8
+
+state 48
+
+    (22) selecao -> SE VAR ENTAO cmds . FIM
+    (24) selecao -> SE VAR ENTAO cmds . SENAO cmds FIM
+
+    FIM             shift and go to state 60
+    SENAO           shift and go to state 61
+
+
+state 49
+
+    (23) selecao -> SE NUM ENTAO cmds . FIM
+    (25) selecao -> SE NUM ENTAO cmds . SENAO cmds FIM
+
+    FIM             shift and go to state 62
+    SENAO           shift and go to state 63
+
+
+state 50
+
+    (9) atribuicao -> FACA VAR SER NUM PONTO .
+
+    FACA            reduce using rule 9 (atribuicao -> FACA VAR SER NUM PONTO .)
+    MOSTRE          reduce using rule 9 (atribuicao -> FACA VAR SER NUM PONTO .)
+    SOME            reduce using rule 9 (atribuicao -> FACA VAR SER NUM PONTO .)
+    MULTIPLIQUE     reduce using rule 9 (atribuicao -> FACA VAR SER NUM PONTO .)
+    REPITA          reduce using rule 9 (atribuicao -> FACA VAR SER NUM PONTO .)
+    SE              reduce using rule 9 (atribuicao -> FACA VAR SER NUM PONTO .)
+    $end            reduce using rule 9 (atribuicao -> FACA VAR SER NUM PONTO .)
+    FIM             reduce using rule 9 (atribuicao -> FACA VAR SER NUM PONTO .)
+    SENAO           reduce using rule 9 (atribuicao -> FACA VAR SER NUM PONTO .)
+
+
+state 51
+
+    (13) operacao -> SOME VAR COM VAR PONTO .
+
+    FACA            reduce using rule 13 (operacao -> SOME VAR COM VAR PONTO .)
+    MOSTRE          reduce using rule 13 (operacao -> SOME VAR COM VAR PONTO .)
+    SOME            reduce using rule 13 (operacao -> SOME VAR COM VAR PONTO .)
+    MULTIPLIQUE     reduce using rule 13 (operacao -> SOME VAR COM VAR PONTO .)
+    REPITA          reduce using rule 13 (operacao -> SOME VAR COM VAR PONTO .)
+    SE              reduce using rule 13 (operacao -> SOME VAR COM VAR PONTO .)
+    $end            reduce using rule 13 (operacao -> SOME VAR COM VAR PONTO .)
+    FIM             reduce using rule 13 (operacao -> SOME VAR COM VAR PONTO .)
+    SENAO           reduce using rule 13 (operacao -> SOME VAR COM VAR PONTO .)
+    PONTO           reduce using rule 13 (operacao -> SOME VAR COM VAR PONTO .)
+
+
+state 52
+
+    (14) operacao -> SOME VAR COM NUM PONTO .
+
+    FACA            reduce using rule 14 (operacao -> SOME VAR COM NUM PONTO .)
+    MOSTRE          reduce using rule 14 (operacao -> SOME VAR COM NUM PONTO .)
+    SOME            reduce using rule 14 (operacao -> SOME VAR COM NUM PONTO .)
+    MULTIPLIQUE     reduce using rule 14 (operacao -> SOME VAR COM NUM PONTO .)
+    REPITA          reduce using rule 14 (operacao -> SOME VAR COM NUM PONTO .)
+    SE              reduce using rule 14 (operacao -> SOME VAR COM NUM PONTO .)
+    $end            reduce using rule 14 (operacao -> SOME VAR COM NUM PONTO .)
+    FIM             reduce using rule 14 (operacao -> SOME VAR COM NUM PONTO .)
+    SENAO           reduce using rule 14 (operacao -> SOME VAR COM NUM PONTO .)
+    PONTO           reduce using rule 14 (operacao -> SOME VAR COM NUM PONTO .)
+
+
+state 53
+
+    (15) operacao -> SOME NUM COM NUM PONTO .
+
+    FACA            reduce using rule 15 (operacao -> SOME NUM COM NUM PONTO .)
+    MOSTRE          reduce using rule 15 (operacao -> SOME NUM COM NUM PONTO .)
+    SOME            reduce using rule 15 (operacao -> SOME NUM COM NUM PONTO .)
+    MULTIPLIQUE     reduce using rule 15 (operacao -> SOME NUM COM NUM PONTO .)
+    REPITA          reduce using rule 15 (operacao -> SOME NUM COM NUM PONTO .)
+    SE              reduce using rule 15 (operacao -> SOME NUM COM NUM PONTO .)
+    $end            reduce using rule 15 (operacao -> SOME NUM COM NUM PONTO .)
+    FIM             reduce using rule 15 (operacao -> SOME NUM COM NUM PONTO .)
+    SENAO           reduce using rule 15 (operacao -> SOME NUM COM NUM PONTO .)
+    PONTO           reduce using rule 15 (operacao -> SOME NUM COM NUM PONTO .)
+
+
+state 54
+
+    (16) operacao -> SOME NUM COM VAR PONTO .
+
+    FACA            reduce using rule 16 (operacao -> SOME NUM COM VAR PONTO .)
+    MOSTRE          reduce using rule 16 (operacao -> SOME NUM COM VAR PONTO .)
+    SOME            reduce using rule 16 (operacao -> SOME NUM COM VAR PONTO .)
+    MULTIPLIQUE     reduce using rule 16 (operacao -> SOME NUM COM VAR PONTO .)
+    REPITA          reduce using rule 16 (operacao -> SOME NUM COM VAR PONTO .)
+    SE              reduce using rule 16 (operacao -> SOME NUM COM VAR PONTO .)
+    $end            reduce using rule 16 (operacao -> SOME NUM COM VAR PONTO .)
+    FIM             reduce using rule 16 (operacao -> SOME NUM COM VAR PONTO .)
+    SENAO           reduce using rule 16 (operacao -> SOME NUM COM VAR PONTO .)
+    PONTO           reduce using rule 16 (operacao -> SOME NUM COM VAR PONTO .)
+
+
+state 55
+
+    (17) operacao -> MULTIPLIQUE VAR POR VAR PONTO .
+
+    FACA            reduce using rule 17 (operacao -> MULTIPLIQUE VAR POR VAR PONTO .)
+    MOSTRE          reduce using rule 17 (operacao -> MULTIPLIQUE VAR POR VAR PONTO .)
+    SOME            reduce using rule 17 (operacao -> MULTIPLIQUE VAR POR VAR PONTO .)
+    MULTIPLIQUE     reduce using rule 17 (operacao -> MULTIPLIQUE VAR POR VAR PONTO .)
+    REPITA          reduce using rule 17 (operacao -> MULTIPLIQUE VAR POR VAR PONTO .)
+    SE              reduce using rule 17 (operacao -> MULTIPLIQUE VAR POR VAR PONTO .)
+    $end            reduce using rule 17 (operacao -> MULTIPLIQUE VAR POR VAR PONTO .)
+    FIM             reduce using rule 17 (operacao -> MULTIPLIQUE VAR POR VAR PONTO .)
+    SENAO           reduce using rule 17 (operacao -> MULTIPLIQUE VAR POR VAR PONTO .)
+    PONTO           reduce using rule 17 (operacao -> MULTIPLIQUE VAR POR VAR PONTO .)
+
+
+state 56
+
+    (18) operacao -> MULTIPLIQUE VAR POR NUM PONTO .
+
+    FACA            reduce using rule 18 (operacao -> MULTIPLIQUE VAR POR NUM PONTO .)
+    MOSTRE          reduce using rule 18 (operacao -> MULTIPLIQUE VAR POR NUM PONTO .)
+    SOME            reduce using rule 18 (operacao -> MULTIPLIQUE VAR POR NUM PONTO .)
+    MULTIPLIQUE     reduce using rule 18 (operacao -> MULTIPLIQUE VAR POR NUM PONTO .)
+    REPITA          reduce using rule 18 (operacao -> MULTIPLIQUE VAR POR NUM PONTO .)
+    SE              reduce using rule 18 (operacao -> MULTIPLIQUE VAR POR NUM PONTO .)
+    $end            reduce using rule 18 (operacao -> MULTIPLIQUE VAR POR NUM PONTO .)
+    FIM             reduce using rule 18 (operacao -> MULTIPLIQUE VAR POR NUM PONTO .)
+    SENAO           reduce using rule 18 (operacao -> MULTIPLIQUE VAR POR NUM PONTO .)
+    PONTO           reduce using rule 18 (operacao -> MULTIPLIQUE VAR POR NUM PONTO .)
+
+
+state 57
+
+    (19) operacao -> MULTIPLIQUE NUM POR NUM PONTO .
+
+    FACA            reduce using rule 19 (operacao -> MULTIPLIQUE NUM POR NUM PONTO .)
+    MOSTRE          reduce using rule 19 (operacao -> MULTIPLIQUE NUM POR NUM PONTO .)
+    SOME            reduce using rule 19 (operacao -> MULTIPLIQUE NUM POR NUM PONTO .)
+    MULTIPLIQUE     reduce using rule 19 (operacao -> MULTIPLIQUE NUM POR NUM PONTO .)
+    REPITA          reduce using rule 19 (operacao -> MULTIPLIQUE NUM POR NUM PONTO .)
+    SE              reduce using rule 19 (operacao -> MULTIPLIQUE NUM POR NUM PONTO .)
+    $end            reduce using rule 19 (operacao -> MULTIPLIQUE NUM POR NUM PONTO .)
+    FIM             reduce using rule 19 (operacao -> MULTIPLIQUE NUM POR NUM PONTO .)
+    SENAO           reduce using rule 19 (operacao -> MULTIPLIQUE NUM POR NUM PONTO .)
+    PONTO           reduce using rule 19 (operacao -> MULTIPLIQUE NUM POR NUM PONTO .)
+
+
+state 58
+
+    (20) operacao -> MULTIPLIQUE NUM POR VAR PONTO .
+
+    FACA            reduce using rule 20 (operacao -> MULTIPLIQUE NUM POR VAR PONTO .)
+    MOSTRE          reduce using rule 20 (operacao -> MULTIPLIQUE NUM POR VAR PONTO .)
+    SOME            reduce using rule 20 (operacao -> MULTIPLIQUE NUM POR VAR PONTO .)
+    MULTIPLIQUE     reduce using rule 20 (operacao -> MULTIPLIQUE NUM POR VAR PONTO .)
+    REPITA          reduce using rule 20 (operacao -> MULTIPLIQUE NUM POR VAR PONTO .)
+    SE              reduce using rule 20 (operacao -> MULTIPLIQUE NUM POR VAR PONTO .)
+    $end            reduce using rule 20 (operacao -> MULTIPLIQUE NUM POR VAR PONTO .)
+    FIM             reduce using rule 20 (operacao -> MULTIPLIQUE NUM POR VAR PONTO .)
+    SENAO           reduce using rule 20 (operacao -> MULTIPLIQUE NUM POR VAR PONTO .)
+    PONTO           reduce using rule 20 (operacao -> MULTIPLIQUE NUM POR VAR PONTO .)
+
+
+state 59
+
+    (21) repeticao -> REPITA NUM VEZES DOISPONTOS cmds . FIM
+
+    FIM             shift and go to state 64
+
+
+state 60
+
+    (22) selecao -> SE VAR ENTAO cmds FIM .
+
+    FACA            reduce using rule 22 (selecao -> SE VAR ENTAO cmds FIM .)
+    MOSTRE          reduce using rule 22 (selecao -> SE VAR ENTAO cmds FIM .)
+    SOME            reduce using rule 22 (selecao -> SE VAR ENTAO cmds FIM .)
+    MULTIPLIQUE     reduce using rule 22 (selecao -> SE VAR ENTAO cmds FIM .)
+    REPITA          reduce using rule 22 (selecao -> SE VAR ENTAO cmds FIM .)
+    SE              reduce using rule 22 (selecao -> SE VAR ENTAO cmds FIM .)
+    $end            reduce using rule 22 (selecao -> SE VAR ENTAO cmds FIM .)
+    FIM             reduce using rule 22 (selecao -> SE VAR ENTAO cmds FIM .)
+    SENAO           reduce using rule 22 (selecao -> SE VAR ENTAO cmds FIM .)
+
+
+state 61
+
+    (24) selecao -> SE VAR ENTAO cmds SENAO . cmds FIM
+    (2) cmds -> . cmd cmds
+    (3) cmds -> . cmd
+    (4) cmd -> . atribuicao
+    (5) cmd -> . impressao
+    (6) cmd -> . operacao
+    (7) cmd -> . repeticao
+    (8) cmd -> . selecao
+    (9) atribuicao -> . FACA VAR SER NUM PONTO
+    (10) impressao -> . MOSTRE VAR PONTO
+    (11) impressao -> . MOSTRE operacao PONTO
+    (12) impressao -> . MOSTRE NUM PONTO
+    (13) operacao -> . SOME VAR COM VAR PONTO
+    (14) operacao -> . SOME VAR COM NUM PONTO
+    (15) operacao -> . SOME NUM COM NUM PONTO
+    (16) operacao -> . SOME NUM COM VAR PONTO
+    (17) operacao -> . MULTIPLIQUE VAR POR VAR PONTO
+    (18) operacao -> . MULTIPLIQUE VAR POR NUM PONTO
+    (19) operacao -> . MULTIPLIQUE NUM POR NUM PONTO
+    (20) operacao -> . MULTIPLIQUE NUM POR VAR PONTO
+    (21) repeticao -> . REPITA NUM VEZES DOISPONTOS cmds FIM
+    (22) selecao -> . SE VAR ENTAO cmds FIM
+    (23) selecao -> . SE NUM ENTAO cmds FIM
+    (24) selecao -> . SE VAR ENTAO cmds SENAO cmds FIM
+    (25) selecao -> . SE NUM ENTAO cmds SENAO cmds FIM
+
+    FACA            shift and go to state 9
+    MOSTRE          shift and go to state 10
+    SOME            shift and go to state 11
+    MULTIPLIQUE     shift and go to state 12
+    REPITA          shift and go to state 13
+    SE              shift and go to state 14
+
+    cmds                           shift and go to state 65
+    cmd                            shift and go to state 3
+    atribuicao                     shift and go to state 4
+    impressao                      shift and go to state 5
+    operacao                       shift and go to state 6
+    repeticao                      shift and go to state 7
+    selecao                        shift and go to state 8
+
+state 62
+
+    (23) selecao -> SE NUM ENTAO cmds FIM .
+
+    FACA            reduce using rule 23 (selecao -> SE NUM ENTAO cmds FIM .)
+    MOSTRE          reduce using rule 23 (selecao -> SE NUM ENTAO cmds FIM .)
+    SOME            reduce using rule 23 (selecao -> SE NUM ENTAO cmds FIM .)
+    MULTIPLIQUE     reduce using rule 23 (selecao -> SE NUM ENTAO cmds FIM .)
+    REPITA          reduce using rule 23 (selecao -> SE NUM ENTAO cmds FIM .)
+    SE              reduce using rule 23 (selecao -> SE NUM ENTAO cmds FIM .)
+    $end            reduce using rule 23 (selecao -> SE NUM ENTAO cmds FIM .)
+    FIM             reduce using rule 23 (selecao -> SE NUM ENTAO cmds FIM .)
+    SENAO           reduce using rule 23 (selecao -> SE NUM ENTAO cmds FIM .)
+
+
+state 63
+
+    (25) selecao -> SE NUM ENTAO cmds SENAO . cmds FIM
+    (2) cmds -> . cmd cmds
+    (3) cmds -> . cmd
+    (4) cmd -> . atribuicao
+    (5) cmd -> . impressao
+    (6) cmd -> . operacao
+    (7) cmd -> . repeticao
+    (8) cmd -> . selecao
+    (9) atribuicao -> . FACA VAR SER NUM PONTO
+    (10) impressao -> . MOSTRE VAR PONTO
+    (11) impressao -> . MOSTRE operacao PONTO
+    (12) impressao -> . MOSTRE NUM PONTO
+    (13) operacao -> . SOME VAR COM VAR PONTO
+    (14) operacao -> . SOME VAR COM NUM PONTO
+    (15) operacao -> . SOME NUM COM NUM PONTO
+    (16) operacao -> . SOME NUM COM VAR PONTO
+    (17) operacao -> . MULTIPLIQUE VAR POR VAR PONTO
+    (18) operacao -> . MULTIPLIQUE VAR POR NUM PONTO
+    (19) operacao -> . MULTIPLIQUE NUM POR NUM PONTO
+    (20) operacao -> . MULTIPLIQUE NUM POR VAR PONTO
+    (21) repeticao -> . REPITA NUM VEZES DOISPONTOS cmds FIM
+    (22) selecao -> . SE VAR ENTAO cmds FIM
+    (23) selecao -> . SE NUM ENTAO cmds FIM
+    (24) selecao -> . SE VAR ENTAO cmds SENAO cmds FIM
+    (25) selecao -> . SE NUM ENTAO cmds SENAO cmds FIM
+
+    FACA            shift and go to state 9
+    MOSTRE          shift and go to state 10
+    SOME            shift and go to state 11
+    MULTIPLIQUE     shift and go to state 12
+    REPITA          shift and go to state 13
+    SE              shift and go to state 14
+
+    cmds                           shift and go to state 66
+    cmd                            shift and go to state 3
+    atribuicao                     shift and go to state 4
+    impressao                      shift and go to state 5
+    operacao                       shift and go to state 6
+    repeticao                      shift and go to state 7
+    selecao                        shift and go to state 8
+
+state 64
+
+    (21) repeticao -> REPITA NUM VEZES DOISPONTOS cmds FIM .
+
+    FACA            reduce using rule 21 (repeticao -> REPITA NUM VEZES DOISPONTOS cmds FIM .)
+    MOSTRE          reduce using rule 21 (repeticao -> REPITA NUM VEZES DOISPONTOS cmds FIM .)
+    SOME            reduce using rule 21 (repeticao -> REPITA NUM VEZES DOISPONTOS cmds FIM .)
+    MULTIPLIQUE     reduce using rule 21 (repeticao -> REPITA NUM VEZES DOISPONTOS cmds FIM .)
+    REPITA          reduce using rule 21 (repeticao -> REPITA NUM VEZES DOISPONTOS cmds FIM .)
+    SE              reduce using rule 21 (repeticao -> REPITA NUM VEZES DOISPONTOS cmds FIM .)
+    $end            reduce using rule 21 (repeticao -> REPITA NUM VEZES DOISPONTOS cmds FIM .)
+    FIM             reduce using rule 21 (repeticao -> REPITA NUM VEZES DOISPONTOS cmds FIM .)
+    SENAO           reduce using rule 21 (repeticao -> REPITA NUM VEZES DOISPONTOS cmds FIM .)
+
+
+state 65
+
+    (24) selecao -> SE VAR ENTAO cmds SENAO cmds . FIM
+
+    FIM             shift and go to state 67
+
+
+state 66
+
+    (25) selecao -> SE NUM ENTAO cmds SENAO cmds . FIM
+
+    FIM             shift and go to state 68
+
+
+state 67
+
+    (24) selecao -> SE VAR ENTAO cmds SENAO cmds FIM .
+
+    FACA            reduce using rule 24 (selecao -> SE VAR ENTAO cmds SENAO cmds FIM .)
+    MOSTRE          reduce using rule 24 (selecao -> SE VAR ENTAO cmds SENAO cmds FIM .)
+    SOME            reduce using rule 24 (selecao -> SE VAR ENTAO cmds SENAO cmds FIM .)
+    MULTIPLIQUE     reduce using rule 24 (selecao -> SE VAR ENTAO cmds SENAO cmds FIM .)
+    REPITA          reduce using rule 24 (selecao -> SE VAR ENTAO cmds SENAO cmds FIM .)
+    SE              reduce using rule 24 (selecao -> SE VAR ENTAO cmds SENAO cmds FIM .)
+    $end            reduce using rule 24 (selecao -> SE VAR ENTAO cmds SENAO cmds FIM .)
+    FIM             reduce using rule 24 (selecao -> SE VAR ENTAO cmds SENAO cmds FIM .)
+    SENAO           reduce using rule 24 (selecao -> SE VAR ENTAO cmds SENAO cmds FIM .)
+
+
+state 68
+
+    (25) selecao -> SE NUM ENTAO cmds SENAO cmds FIM .
+
+    FACA            reduce using rule 25 (selecao -> SE NUM ENTAO cmds SENAO cmds FIM .)
+    MOSTRE          reduce using rule 25 (selecao -> SE NUM ENTAO cmds SENAO cmds FIM .)
+    SOME            reduce using rule 25 (selecao -> SE NUM ENTAO cmds SENAO cmds FIM .)
+    MULTIPLIQUE     reduce using rule 25 (selecao -> SE NUM ENTAO cmds SENAO cmds FIM .)
+    REPITA          reduce using rule 25 (selecao -> SE NUM ENTAO cmds SENAO cmds FIM .)
+    SE              reduce using rule 25 (selecao -> SE NUM ENTAO cmds SENAO cmds FIM .)
+    $end            reduce using rule 25 (selecao -> SE NUM ENTAO cmds SENAO cmds FIM .)
+    FIM             reduce using rule 25 (selecao -> SE NUM ENTAO cmds SENAO cmds FIM .)
+    SENAO           reduce using rule 25 (selecao -> SE NUM ENTAO cmds SENAO cmds FIM .)
+

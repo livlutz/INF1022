@@ -1,11 +1,4 @@
-x = 2
-y = 3
-for i in range(3):
-	if x:
-		print(x)
-		if y:
-			print(y)
-	else:
-		print(0)
-	x = x + 1
-	y = y * x
+resultado = 1
+resultado = resultado * 5
+resultado = resultado + 10
+print(resultado)

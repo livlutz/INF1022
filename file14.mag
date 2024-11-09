@@ -1,14 +1,4 @@
-FACA x SER 2.
-FACA y SER 3.
-REPITA 3 VEZES:
-    SE x ENTAO
-        MOSTRE x.
-        SE y ENTAO
-            MOSTRE y.
-        FIM
-    SENAO
-        MOSTRE 0.
-    FIM
-    SOME x COM 1.
-    MULTIPLIQUE y POR x.
-FIM
+FACA resultado SER 1.
+MULTIPLIQUE resultado POR 5.
+SOME resultado COM 10.
+MOSTRE resultado.
