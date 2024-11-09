@@ -149,8 +149,8 @@ em qual token o erro foi encontrado.
 Também implementei um contador de testes que no final da execução do loop descrito acima, verifica se a quantidade de testes
 bem-sucedidos é igual a quantidade de testes feitos, indicando se todos os testes funcionam ou não.
 
-(Para fins de teste, por favor dar unzip nos arquivos .mag que enviarei no ead e colocar na mesma pasta que o 
-arquivo analisador_sintatico.py e rodar o código normalmente)
+(Para fins de teste, por favor dar unzip nos arquivos .mag que enviarei no ead e deixar a pasta com o mesmo nome (Testes),
+assim, o arquivo analisador_sintatico.py poderá rodar os testes normalmente)
 
 Gramática final usada :
 
