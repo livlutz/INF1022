@@ -173,7 +173,7 @@ parser = yacc.yacc(debug = True)
 contTestes = 0
 
 # Realiza os testes para os arquivos file1.mag até file8.mag
-for i in range(1, 13):
+for i in range(1, 17):
     
     #montando nomes para os arquivos de entrada e saida
     stringFileMag = "file" + str(i) + ".mag"
@@ -219,7 +219,7 @@ for i in range(1, 13):
         print(result)
 
 #verifica se todos os testes foram realizados com sucesso        
-if(contTestes == 12):
+if(contTestes == 16):
     print("Todos os testes foram realizados com sucesso!")
 
 #Imprime mensagem com otrientção de verificação caso haja erros    
