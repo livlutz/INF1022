@@ -1,0 +1,4 @@
+FACA numero SER 0.
+SE numero ENTAO
+    MOSTRE numero.
+FIM

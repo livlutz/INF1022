@@ -134,9 +134,10 @@ def p_operacao(p):
 
 
 #repeticao −→ REPITA num VEZES : cmds FIM
-def p_repeticao(p):
-    '''repeticao : REPITA NUM VEZES DOISPONTOS cmds FIM'''
-    p[0] = "for i in range(" + str(p[2]) + "):\n\t" + p[5].replace("\n", "\t")
+def p_repeticao(p): 
+    '''repeticao : REPITA NUM VEZES DOISPONTOS cmds FIM''' 
+    cmds_indentado = "\n\t".join(p[5].split("\n")) 
+    p[0] = f"for i in range({p[2]}):\n\t" + cmds_indentado
 
 
 #selecao −→ SE VAR ENTAO cmds FIM | SE NUM ENTAO cmds FIM | SE VAR ENTAO cmds SENAO cmds FIM | SE NUM ENTAO cmds SENAO cmds FIM
@@ -172,7 +173,7 @@ parser = yacc.yacc(debug = True)
 contTestes = 0
 
 # Realiza os testes para os arquivos file1.mag até file8.mag
-for i in range(1, 9):
+for i in range(1, 13):
     
     #montando nomes para os arquivos de entrada e saida
     stringFileMag = "file" + str(i) + ".mag"
@@ -205,15 +206,24 @@ for i in range(1, 9):
         contTestes += 1
         
     else:
+        #Imprime mensagem de erro
         print("Erro ao gerar o código da file" + str(i) + ".mag")
+        
+        #Imprime os tokens gerados
         print("Tokens gerados:")
         
         for token in lexer:
             print(token)
-            
-        print(result)
         
-if(contTestes == 8):
+        #Imprime o resultado da analise sintatica
+        print(result)
+
+#verifica se todos os testes foram realizados com sucesso        
+if(contTestes == 12):
     print("Todos os testes foram realizados com sucesso!")
+
+#Imprime mensagem com otrientção de verificação caso haja erros    
+else:
+    print("Verifique os erros encontrados!")
 
     

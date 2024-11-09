@@ -1,0 +1,5 @@
+FACA contador SER 1.
+REPITA 5 VEZES:
+    MOSTRE contador.
+    SOME contador COM 1.
+FIM
