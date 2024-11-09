@@ -176,7 +176,7 @@ contTestes = 0
 for i in range(1, 16):
     
     #montando nomes para os arquivos de entrada e saida
-    stringFileMag = "file" + str(i) + ".mag"
+    stringFileMag = 'Testes/'+"file" + str(i) + ".mag"
     stringFilePy = "file" + str(i) + ".py"
     
     #lendo a entrada

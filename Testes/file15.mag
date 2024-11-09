@@ -5,11 +5,11 @@ SOME b COM a.
 MOSTRE a.
 MOSTRE b.
 REPITA 2 VEZES:
-    SE a ENTAO
-        MULTIPLIQUE a POR b.
-    SENAO
-        SOME b COM a.
-    FIM
+SE a ENTAO
+MULTIPLIQUE a POR b.
+SENAO
+SOME b COM a.
+FIM
 FIM
 MOSTRE a.
 MOSTRE b.

@@ -93,28 +93,28 @@ MOSTRE b.
 
 FACA contador SER 1.
 REPITA 5 VEZES:
-    MOSTRE contador.
-    SOME contador COM 1.
+MOSTRE contador.
+SOME contador COM 1.
 FIM
 
 FACA numero SER 0.
 SE numero ENTAO
-    MOSTRE numero.
+MOSTRE numero.
 FIM
 
 FACA x SER 2.
 FACA y SER 3.
 REPITA 3 VEZES:
-    SE x ENTAO
-        MOSTRE x.
-        SE y ENTAO
-            MOSTRE y.
-        FIM
-    SENAO
-        MOSTRE 0.
-    FIM
-    SOME x COM 1.
-    MULTIPLIQUE y POR x.
+SE x ENTAO
+MOSTRE x.
+SE y ENTAO
+MOSTRE y.
+FIM
+SENAO
+MOSTRE 0.
+FIM
+SOME x COM 1.
+MULTIPLIQUE y POR x.
 FIM
 
 FACA resultado SER 1.
@@ -129,11 +129,11 @@ SOME b COM a.
 MOSTRE a.
 MOSTRE b.
 REPITA 2 VEZES:
-    SE a ENTAO
-        MULTIPLIQUE a POR b.
-    SENAO
-        SOME b COM a.
-    FIM
+SE a ENTAO
+MULTIPLIQUE a POR b.
+SENAO
+SOME b COM a.
+FIM
 FIM
 MOSTRE a.
 MOSTRE b.
