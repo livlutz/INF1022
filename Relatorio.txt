@@ -4,7 +4,31 @@ Nome - matrícula - turma : Lívia Lutz dos Santos - 2211055 - 3WA
 
 O que foi implementado : 
 
+Implementei um lexer e um parser em Python para a linguagem Matemágica a partir de suas expressões regulares e gramática
+que gera um código em python equivalente ao código em Matemágica de entrada.
+
 Como foi implementado :
+
+Utilizei a biblioteca de Python PLY para criar o lexer e o parser, 
+montei a lista de tokens terminais e não terminais da linguagem matemágica e
+expressões regulares para cada token (Para alguns tokens como por exemplo o NUM, newline e erro, 
+utilizei funções para definir sua regex, para o resto apenas defini como strings sendo atribuídas a variávies).
+
+Após essas definições, usei funções para definir a gramática da linguagem que usa arrays para guardar e montar as regras
+conforme elas eram lidas em formato de string para ser escrita em um arquivo Python de saída.
+
+Assim, fiz a construção do lexer (lex) e do parser (yacc) chamando funções da biblioteca PLY. Usei debug = True para que
+o programa gere um arquivo parser.out que contenha a gramática usada, a árvore sintática gerada e a máquina de estados gerada
+a partir da gramática e regex da linguagem passada para o lexyacc para fins de verificação do raciocínio durante a montagem
+do trabalho e como material extra para este relatório.
+
+Fiz um loop que, para todos os arquivos de teste que foram tanto sugeridos no enunciado do trabalho quanto gerados por mim, pega cada
+um desses arquivos .mag de teste de entrada e passa para o lexer e o parser e gera um arquivo .py para cada teste, imprimindo e executando
+o código gerado a partir da análise léxica e sintática da entrada passada, em caso de erro, imprime uma mensagem de erro, os tokens gerados e
+em qual token o erro foi encontrado.
+
+Também implementei um contador de testes que no final da execução do loop descrito acima, verifica se a quantidade de testes
+bem-sucedidos é igual a quantidade de testes feitos, indicando se todos os testes funcionam ou não.
 
 O que funciona :
 
@@ -35,3 +59,5 @@ SOME num COM num. | MULTIPLIQUE var POR var. | MULTIPLIQUE var POR num. | MULTIP
 selecao −→ SE VAR ENTAO cmds FIM | SE NUM ENTAO cmds FIM | SE VAR ENTAO cmds SENAO cmds FIM | SE NUM ENTAO cmds SENAO cmds FIM
 
 Funcionalidade adicional : 
+
+Nenhuma funcionalidade adicional foi implementada

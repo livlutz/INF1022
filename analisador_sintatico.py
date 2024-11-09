@@ -1,4 +1,4 @@
-#Livia Lutz dos Santos - 2211055 - 3WA
+#Lívia Lutz dos Santos - 2211055 - 3WA
 
 import ply.lex as lex
 import ply.yacc as yacc
@@ -166,7 +166,7 @@ def p_error(p):
 lexer = lex.lex(debug=True)
 
 # Constroi o parser
-parser = yacc.yacc()
+parser = yacc.yacc(debug = True)
 
 #contagem de testes realizados
 contTestes = 0

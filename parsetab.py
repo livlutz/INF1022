@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'COM DOISPONTOS ENTAO FACA FIM MOSTRE MULTIPLIQUE NUM PONTO POR REPITA SE SENAO SER SOME VAR VEZESprograma : cmdscmds : cmd cmds\n            | cmdcmd : atribuicao\n              | impressao\n              | operacao\n              | repeticao\n              | selecaoatribuicao : FACA VAR SER NUM PONTOimpressao : MOSTRE VAR PONTO\n                 | MOSTRE operacao PONTO\n                 | MOSTRE NUM PONTOoperacao : SOME VAR COM VAR PONTO\n                | SOME VAR COM NUM PONTO\n                | SOME NUM COM NUM PONTO\n                | MULTIPLIQUE VAR POR VAR PONTO\n                | MULTIPLIQUE VAR POR NUM PONTO\n                | MULTIPLIQUE NUM POR NUM PONTO\n                | MULTIPLIQUE NUM POR VAR PONTOrepeticao : REPITA NUM VEZES DOISPONTOS cmds FIMselecao : SE VAR ENTAO cmds FIM\n               | SE NUM ENTAO cmds FIM\n               | SE VAR ENTAO cmds SENAO cmds FIM\n               | SE NUM ENTAO cmds SENAO cmds FIM'
+_lr_signature = 'COM DOISPONTOS ENTAO FACA FIM MOSTRE MULTIPLIQUE NUM PONTO POR REPITA SE SENAO SER SOME VAR VEZESprograma : cmdscmds : cmd cmds\n            | cmdcmd : atribuicao\n              | impressao\n              | operacao\n              | repeticao\n              | selecaoatribuicao : FACA VAR SER NUM PONTOimpressao : MOSTRE VAR PONTO\n                 | MOSTRE operacao PONTO\n                 | MOSTRE NUM PONTOoperacao : SOME VAR COM VAR PONTO\n                | SOME VAR COM NUM PONTO\n                | SOME NUM COM NUM PONTO\n                | SOME NUM COM VAR PONTO\n                | MULTIPLIQUE VAR POR VAR PONTO\n                | MULTIPLIQUE VAR POR NUM PONTO\n                | MULTIPLIQUE NUM POR NUM PONTO\n                | MULTIPLIQUE NUM POR VAR PONTOrepeticao : REPITA NUM VEZES DOISPONTOS cmds FIMselecao : SE VAR ENTAO cmds FIM\n               | SE NUM ENTAO cmds FIM\n               | SE VAR ENTAO cmds SENAO cmds FIM\n               | SE NUM ENTAO cmds SENAO cmds FIM'
     
-_lr_action_items = {'FACA':([0,3,4,5,6,7,8,28,29,30,36,37,46,49,50,51,52,53,54,55,56,58,59,60,61,62,65,66,],[9,9,-4,-5,-6,-7,-8,-10,-11,-12,9,9,9,-9,-13,-14,-15,-16,-17,-18,-19,-21,9,-22,9,-20,-23,-24,]),'MOSTRE':([0,3,4,5,6,7,8,28,29,30,36,37,46,49,50,51,52,53,54,55,56,58,59,60,61,62,65,66,],[10,10,-4,-5,-6,-7,-8,-10,-11,-12,10,10,10,-9,-13,-14,-15,-16,-17,-18,-19,-21,10,-22,10,-20,-23,-24,]),'SOME':([0,3,4,5,6,7,8,10,28,29,30,36,37,46,49,50,51,52,53,54,55,56,58,59,60,61,62,65,66,],[11,11,-4,-5,-6,-7,-8,11,-10,-11,-12,11,11,11,-9,-13,-14,-15,-16,-17,-18,-19,-21,11,-22,11,-20,-23,-24,]),'MULTIPLIQUE':([0,3,4,5,6,7,8,10,28,29,30,36,37,46,49,50,51,52,53,54,55,56,58,59,60,61,62,65,66,],[12,12,-4,-5,-6,-7,-8,12,-10,-11,-12,12,12,12,-9,-13,-14,-15,-16,-17,-18,-19,-21,12,-22,12,-20,-23,-24,]),'REPITA':([0,3,4,5,6,7,8,28,29,30,36,37,46,49,50,51,52,53,54,55,56,58,59,60,61,62,65,66,],[13,13,-4,-5,-6,-7,-8,-10,-11,-12,13,13,13,-9,-13,-14,-15,-16,-17,-18,-19,-21,13,-22,13,-20,-23,-24,]),'SE':([0,3,4,5,6,7,8,28,29,30,36,37,46,49,50,51,52,53,54,55,56,58,59,60,61,62,65,66,],[14,14,-4,-5,-6,-7,-8,-10,-11,-12,14,14,14,-9,-13,-14,-15,-16,-17,-18,-19,-21,14,-22,14,-20,-23,-24,]),'$end':([1,2,3,4,5,6,7,8,15,28,29,30,49,50,51,52,53,54,55,56,58,60,62,65,66,],[0,-1,-3,-4,-5,-6,-7,-8,-2,-10,-11,-12,-9,-13,-14,-15,-16,-17,-18,-19,-21,-22,-20,-23,-24,]),'FIM':([3,4,5,6,7,8,15,28,29,30,47,48,49,50,51,52,53,54,55,56,57,58,60,62,63,64,65,66,],[-3,-4,-5,-6,-7,-8,-2,-10,-11,-12,58,60,-9,-13,-14,-15,-16,-17,-18,-19,62,-21,-22,-20,65,66,-23,-24,]),'SENAO':([3,4,5,6,7,8,15,28,29,30,47,48,49,50,51,52,53,54,55,56,58,60,62,65,66,],[-3,-4,-5,-6,-7,-8,-2,-10,-11,-12,59,61,-9,-13,-14,-15,-16,-17,-18,-19,-21,-22,-20,-23,-24,]),'VAR':([9,10,11,12,14,31,33,34,],[16,17,20,22,25,39,42,45,]),'NUM':([10,11,12,13,14,27,31,32,33,34,],[19,21,23,24,26,38,40,41,43,44,]),'SER':([16,],[27,]),'PONTO':([17,18,19,38,39,40,41,42,43,44,45,50,51,52,53,54,55,56,],[28,29,30,49,50,51,52,53,54,55,56,-13,-14,-15,-16,-17,-18,-19,]),'COM':([20,21,],[31,32,]),'POR':([22,23,],[33,34,]),'VEZES':([24,],[35,]),'ENTAO':([25,26,],[36,37,]),'DOISPONTOS':([35,],[46,]),}
+_lr_action_items = {'FACA':([0,3,4,5,6,7,8,28,29,30,36,37,47,50,51,52,53,54,55,56,57,58,60,61,62,63,64,67,68,],[9,9,-4,-5,-6,-7,-8,-10,-11,-12,9,9,9,-9,-13,-14,-15,-16,-17,-18,-19,-20,-22,9,-23,9,-21,-24,-25,]),'MOSTRE':([0,3,4,5,6,7,8,28,29,30,36,37,47,50,51,52,53,54,55,56,57,58,60,61,62,63,64,67,68,],[10,10,-4,-5,-6,-7,-8,-10,-11,-12,10,10,10,-9,-13,-14,-15,-16,-17,-18,-19,-20,-22,10,-23,10,-21,-24,-25,]),'SOME':([0,3,4,5,6,7,8,10,28,29,30,36,37,47,50,51,52,53,54,55,56,57,58,60,61,62,63,64,67,68,],[11,11,-4,-5,-6,-7,-8,11,-10,-11,-12,11,11,11,-9,-13,-14,-15,-16,-17,-18,-19,-20,-22,11,-23,11,-21,-24,-25,]),'MULTIPLIQUE':([0,3,4,5,6,7,8,10,28,29,30,36,37,47,50,51,52,53,54,55,56,57,58,60,61,62,63,64,67,68,],[12,12,-4,-5,-6,-7,-8,12,-10,-11,-12,12,12,12,-9,-13,-14,-15,-16,-17,-18,-19,-20,-22,12,-23,12,-21,-24,-25,]),'REPITA':([0,3,4,5,6,7,8,28,29,30,36,37,47,50,51,52,53,54,55,56,57,58,60,61,62,63,64,67,68,],[13,13,-4,-5,-6,-7,-8,-10,-11,-12,13,13,13,-9,-13,-14,-15,-16,-17,-18,-19,-20,-22,13,-23,13,-21,-24,-25,]),'SE':([0,3,4,5,6,7,8,28,29,30,36,37,47,50,51,52,53,54,55,56,57,58,60,61,62,63,64,67,68,],[14,14,-4,-5,-6,-7,-8,-10,-11,-12,14,14,14,-9,-13,-14,-15,-16,-17,-18,-19,-20,-22,14,-23,14,-21,-24,-25,]),'$end':([1,2,3,4,5,6,7,8,15,28,29,30,50,51,52,53,54,55,56,57,58,60,62,64,67,68,],[0,-1,-3,-4,-5,-6,-7,-8,-2,-10,-11,-12,-9,-13,-14,-15,-16,-17,-18,-19,-20,-22,-23,-21,-24,-25,]),'FIM':([3,4,5,6,7,8,15,28,29,30,48,49,50,51,52,53,54,55,56,57,58,59,60,62,64,65,66,67,68,],[-3,-4,-5,-6,-7,-8,-2,-10,-11,-12,60,62,-9,-13,-14,-15,-16,-17,-18,-19,-20,64,-22,-23,-21,67,68,-24,-25,]),'SENAO':([3,4,5,6,7,8,15,28,29,30,48,49,50,51,52,53,54,55,56,57,58,60,62,64,67,68,],[-3,-4,-5,-6,-7,-8,-2,-10,-11,-12,61,63,-9,-13,-14,-15,-16,-17,-18,-19,-20,-22,-23,-21,-24,-25,]),'VAR':([9,10,11,12,14,31,32,33,34,],[16,17,20,22,25,39,42,43,46,]),'NUM':([10,11,12,13,14,27,31,32,33,34,],[19,21,23,24,26,38,40,41,44,45,]),'SER':([16,],[27,]),'PONTO':([17,18,19,38,39,40,41,42,43,44,45,46,51,52,53,54,55,56,57,58,],[28,29,30,50,51,52,53,54,55,56,57,58,-13,-14,-15,-16,-17,-18,-19,-20,]),'COM':([20,21,],[31,32,]),'POR':([22,23,],[33,34,]),'VEZES':([24,],[35,]),'ENTAO':([25,26,],[36,37,]),'DOISPONTOS':([35,],[47,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'programa':([0,],[1,]),'cmds':([0,3,36,37,46,59,61,],[2,15,47,48,57,63,64,]),'cmd':([0,3,36,37,46,59,61,],[3,3,3,3,3,3,3,]),'atribuicao':([0,3,36,37,46,59,61,],[4,4,4,4,4,4,4,]),'impressao':([0,3,36,37,46,59,61,],[5,5,5,5,5,5,5,]),'operacao':([0,3,10,36,37,46,59,61,],[6,6,18,6,6,6,6,6,]),'repeticao':([0,3,36,37,46,59,61,],[7,7,7,7,7,7,7,]),'selecao':([0,3,36,37,46,59,61,],[8,8,8,8,8,8,8,]),}
+_lr_goto_items = {'programa':([0,],[1,]),'cmds':([0,3,36,37,47,61,63,],[2,15,48,49,59,65,66,]),'cmd':([0,3,36,37,47,61,63,],[3,3,3,3,3,3,3,]),'atribuicao':([0,3,36,37,47,61,63,],[4,4,4,4,4,4,4,]),'impressao':([0,3,36,37,47,61,63,],[5,5,5,5,5,5,5,]),'operacao':([0,3,10,36,37,47,61,63,],[6,6,18,6,6,6,6,6,]),'repeticao':([0,3,36,37,47,61,63,],[7,7,7,7,7,7,7,]),'selecao':([0,3,36,37,47,61,63,],[8,8,8,8,8,8,8,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,28 +27,29 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> programa","S'",1,None,None,None),
-  ('programa -> cmds','programa',1,'p_programa','analisador_sintatico.py',93),
-  ('cmds -> cmd cmds','cmds',2,'p_cmds','analisador_sintatico.py',98),
-  ('cmds -> cmd','cmds',1,'p_cmds','analisador_sintatico.py',99),
-  ('cmd -> atribuicao','cmd',1,'p_cmd','analisador_sintatico.py',107),
-  ('cmd -> impressao','cmd',1,'p_cmd','analisador_sintatico.py',108),
-  ('cmd -> operacao','cmd',1,'p_cmd','analisador_sintatico.py',109),
-  ('cmd -> repeticao','cmd',1,'p_cmd','analisador_sintatico.py',110),
-  ('cmd -> selecao','cmd',1,'p_cmd','analisador_sintatico.py',111),
-  ('atribuicao -> FACA VAR SER NUM PONTO','atribuicao',5,'p_atribuicao','analisador_sintatico.py',116),
-  ('impressao -> MOSTRE VAR PONTO','impressao',3,'p_impressao','analisador_sintatico.py',121),
-  ('impressao -> MOSTRE operacao PONTO','impressao',3,'p_impressao','analisador_sintatico.py',122),
-  ('impressao -> MOSTRE NUM PONTO','impressao',3,'p_impressao','analisador_sintatico.py',123),
-  ('operacao -> SOME VAR COM VAR PONTO','operacao',5,'p_operacao','analisador_sintatico.py',130),
-  ('operacao -> SOME VAR COM NUM PONTO','operacao',5,'p_operacao','analisador_sintatico.py',131),
-  ('operacao -> SOME NUM COM NUM PONTO','operacao',5,'p_operacao','analisador_sintatico.py',132),
-  ('operacao -> MULTIPLIQUE VAR POR VAR PONTO','operacao',5,'p_operacao','analisador_sintatico.py',133),
-  ('operacao -> MULTIPLIQUE VAR POR NUM PONTO','operacao',5,'p_operacao','analisador_sintatico.py',134),
-  ('operacao -> MULTIPLIQUE NUM POR NUM PONTO','operacao',5,'p_operacao','analisador_sintatico.py',135),
-  ('operacao -> MULTIPLIQUE NUM POR VAR PONTO','operacao',5,'p_operacao','analisador_sintatico.py',136),
-  ('repeticao -> REPITA NUM VEZES DOISPONTOS cmds FIM','repeticao',6,'p_repeticao','analisador_sintatico.py',145),
-  ('selecao -> SE VAR ENTAO cmds FIM','selecao',5,'p_selecao','analisador_sintatico.py',152),
-  ('selecao -> SE NUM ENTAO cmds FIM','selecao',5,'p_selecao','analisador_sintatico.py',153),
-  ('selecao -> SE VAR ENTAO cmds SENAO cmds FIM','selecao',7,'p_selecao','analisador_sintatico.py',154),
-  ('selecao -> SE NUM ENTAO cmds SENAO cmds FIM','selecao',7,'p_selecao','analisador_sintatico.py',155),
+  ('programa -> cmds','programa',1,'p_programa','analisador_sintatico.py',84),
+  ('cmds -> cmd cmds','cmds',2,'p_cmds','analisador_sintatico.py',89),
+  ('cmds -> cmd','cmds',1,'p_cmds','analisador_sintatico.py',90),
+  ('cmd -> atribuicao','cmd',1,'p_cmd','analisador_sintatico.py',98),
+  ('cmd -> impressao','cmd',1,'p_cmd','analisador_sintatico.py',99),
+  ('cmd -> operacao','cmd',1,'p_cmd','analisador_sintatico.py',100),
+  ('cmd -> repeticao','cmd',1,'p_cmd','analisador_sintatico.py',101),
+  ('cmd -> selecao','cmd',1,'p_cmd','analisador_sintatico.py',102),
+  ('atribuicao -> FACA VAR SER NUM PONTO','atribuicao',5,'p_atribuicao','analisador_sintatico.py',107),
+  ('impressao -> MOSTRE VAR PONTO','impressao',3,'p_impressao','analisador_sintatico.py',112),
+  ('impressao -> MOSTRE operacao PONTO','impressao',3,'p_impressao','analisador_sintatico.py',113),
+  ('impressao -> MOSTRE NUM PONTO','impressao',3,'p_impressao','analisador_sintatico.py',114),
+  ('operacao -> SOME VAR COM VAR PONTO','operacao',5,'p_operacao','analisador_sintatico.py',120),
+  ('operacao -> SOME VAR COM NUM PONTO','operacao',5,'p_operacao','analisador_sintatico.py',121),
+  ('operacao -> SOME NUM COM NUM PONTO','operacao',5,'p_operacao','analisador_sintatico.py',122),
+  ('operacao -> SOME NUM COM VAR PONTO','operacao',5,'p_operacao','analisador_sintatico.py',123),
+  ('operacao -> MULTIPLIQUE VAR POR VAR PONTO','operacao',5,'p_operacao','analisador_sintatico.py',124),
+  ('operacao -> MULTIPLIQUE VAR POR NUM PONTO','operacao',5,'p_operacao','analisador_sintatico.py',125),
+  ('operacao -> MULTIPLIQUE NUM POR NUM PONTO','operacao',5,'p_operacao','analisador_sintatico.py',126),
+  ('operacao -> MULTIPLIQUE NUM POR VAR PONTO','operacao',5,'p_operacao','analisador_sintatico.py',127),
+  ('repeticao -> REPITA NUM VEZES DOISPONTOS cmds FIM','repeticao',6,'p_repeticao','analisador_sintatico.py',138),
+  ('selecao -> SE VAR ENTAO cmds FIM','selecao',5,'p_selecao','analisador_sintatico.py',145),
+  ('selecao -> SE NUM ENTAO cmds FIM','selecao',5,'p_selecao','analisador_sintatico.py',146),
+  ('selecao -> SE VAR ENTAO cmds SENAO cmds FIM','selecao',7,'p_selecao','analisador_sintatico.py',147),
+  ('selecao -> SE NUM ENTAO cmds SENAO cmds FIM','selecao',7,'p_selecao','analisador_sintatico.py',148),
 ]
