@@ -146,20 +146,30 @@ def p_repeticao(p):
 
 #selecao −→ SE VAR ENTAO cmds FIM | SE NUM ENTAO cmds FIM | SE VAR ENTAO cmds SENAO cmds FIM | SE NUM ENTAO cmds SENAO cmds FIM
 #no else tem q ter um \n para pular linha e voltar a identacao
-
 def p_selecao(p):
     '''selecao : SE VAR ENTAO cmds FIM
                | SE NUM ENTAO cmds FIM
                | SE VAR ENTAO cmds SENAO cmds FIM
                | SE NUM ENTAO cmds SENAO cmds FIM'''
-    if 'SENAO' not in p:
-        p[0] = f"if {p[2]}:\n\t" + p[4].replace("\n", "\n\t")
+    
+    condition = p[2] if isinstance(p[2], str) else (p[2] != 0)
+    
+    # Estrutura para SE-ENTAO sem SENAO
+    if len(p) == 6:
+        p[0] = f"if {condition}:\n\t" + p[4].replace("\n", "\n\t")
+        
+    # Estrutura para SE-ENTAO-SENAO
     else:
-        p[0] = f"if {p[2]}:\n\t" + p[4].replace("\n", "\n\t") + "\nelse:\n\t" + p[6].replace("\n", "\n\t")
+        p[0] = f"if {condition}:\n\t" + p[4].replace("\n", "\n\t") + "\nelse:\n\t" + p[6].replace("\n", "\n\t")
+
+    print("Seleção gerada:", p[0])
 
 
 def p_error(p):
-    print("Erro de sintaxe!")
+    if p:
+        print(f"Erro de sintaxe no token '{p.value}', linha {p.lineno}")
+    else:
+        print("Erro de sintaxe: token inesperado no final do arquivo")
     
 #Constroi o lexer
 lexer = lex.lex(debug=True)
@@ -175,9 +185,21 @@ with open("file6.mag","r") as file:
 
 lexer.input(data)
 
+# Exibe cada token gerado para depuração
+print("Tokens gerados:")
+for token in lexer:
+    print(token)
+
+# Reinicializa o lexer e realiza a análise sintática
+lexer.input(data)  # Necessário para resetar a posição do lexer no arquivo
 result = parser.parse(data)
 
 print(result)
+
+try:
+    exec(result)
+except Exception as e:
+    print(f"Erro durante a execução do código gerado: {e}")
 
 
 #exec(result)
