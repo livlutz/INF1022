@@ -9,7 +9,7 @@ cmds −→ cmd cmds | cmd
 cmd −→ atribuicao | impressao | operacao | repeticao
 atribuicao −→ FACA var SER num.
 impressao −→ MOSTRE var. | MOSTRE operacao. | MOSTRE num.
-operacao −→ SOME var COM var. | SOME var COM num. |
+operacao −→ SOME var COM var. | SOME var COM num. | SOME num COM var. 
 SOME num COM num. | MULTIPLIQUE var POR var. | MULTIPLIQUE var POR num. | MULTIPLIQUE num POR num. | MULTIPLIQUE num POR var.
 repeticao −→ REPITA num VEZES : cmds FIM
 selecao −→ SE VAR ENTAO cmds FIM | SE NUM ENTAO cmds FIM | SE VAR ENTAO cmds SENAO cmds FIM | SE NUM ENTAO cmds SENAO cmds FIM
@@ -120,6 +120,7 @@ def p_operacao(p):
     '''operacao : SOME VAR COM VAR PONTO
                 | SOME VAR COM NUM PONTO
                 | SOME NUM COM NUM PONTO
+                | SOME NUM COM VAR PONTO
                 | MULTIPLIQUE VAR POR VAR PONTO
                 | MULTIPLIQUE VAR POR NUM PONTO
                 | MULTIPLIQUE NUM POR NUM PONTO

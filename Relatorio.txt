@@ -16,6 +16,22 @@ Maneira de utilizar os testes :
 
 Gramática final usada :
 
+A sintaxe da linguagem Matemágica usada para a minha implementação do trabalho é dada pela gramática abaixo:
+
+programa −→ cmds
+cmds −→ cmd cmds | cmd
+cmd −→ atribuicao | impressao | operacao | repeticao
+atribuicao −→ FACA var SER num.
+impressao −→ MOSTRE var. | MOSTRE operacao. | MOSTRE num.
+operacao −→ SOME var COM var. | SOME var COM num. |
+SOME num COM num. | MULTIPLIQUE var POR var. | MULTIPLIQUE var POR num. | MULTIPLIQUE num POR num. | MULTIPLIQUE num POR var.
+repeticao −→ REPITA num VEZES : cmds FIM
+selecao −→ SE VAR ENTAO cmds FIM | SE NUM ENTAO cmds FIM | SE VAR ENTAO cmds SENAO cmds FIM | SE NUM ENTAO cmds SENAO cmds FIM
+
 Quais regras foram adicionadas :
+impressao −→ MOSTRE var. | MOSTRE operacao. | MOSTRE num.
+operacao −→ SOME var COM var. | SOME var COM num. |
+SOME num COM num. | MULTIPLIQUE var POR var. | MULTIPLIQUE var POR num. | MULTIPLIQUE num POR num. | MULTIPLIQUE num POR var.
+selecao −→ SE VAR ENTAO cmds FIM | SE NUM ENTAO cmds FIM | SE VAR ENTAO cmds SENAO cmds FIM | SE NUM ENTAO cmds SENAO cmds FIM
 
 Funcionalidade adicional : 
