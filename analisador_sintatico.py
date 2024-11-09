@@ -8,11 +8,11 @@ programa −→ cmds
 cmds −→ cmd cmds | cmd
 cmd −→ atribuicao | impressao | operacao | repeticao
 atribuicao −→ FACA var SER num.
-impressao −→ MOSTRE var. | MOSTRE operacao.
+impressao −→ MOSTRE var. | MOSTRE operacao. | MOSTRE num.
 operacao −→ SOME var COM var. | SOME var COM num. |
 SOME num COM num. | MULTIPLIQUE var POR var. | MULTIPLIQUE var POR num. | MULTIPLIQUE num POR num. | MULTIPLIQUE num POR var.
 repeticao −→ REPITA num VEZES : cmds FIM
-selecao --> SE VAR ENTAO cmds FIM| SE NUM ENTAO cmds FIM | SE VAR ENTAO cmds SENAO cmds FIM| SE NUM ENTAO cmds SENAO cmds FIM
+selecao −→ SE VAR ENTAO cmds FIM | SE NUM ENTAO cmds FIM | SE VAR ENTAO cmds SENAO cmds FIM | SE NUM ENTAO cmds SENAO cmds FIM
 
 Alem disso, a gramatica descrita acima deve ser complementada para que a linguagem Matemagica seja capaz de executar comandos do tipo:
 
@@ -116,11 +116,13 @@ def p_atribuicao(p):
     '''atribuicao : FACA VAR SER NUM PONTO'''
     p[0] = f"{p[2]} = {p[4]}"
 
-#impressao −→ MOSTRE var. | MOSTRE operacao. tem q virar print(var) ou print(operacao)
+#impressao −→ MOSTRE var. | MOSTRE operacao. | MOSTRE num.
 def p_impressao(p):
     '''impressao : MOSTRE VAR PONTO
-                 | MOSTRE operacao PONTO'''
+                 | MOSTRE operacao PONTO
+                 | MOSTRE NUM PONTO'''
     p[0] = f"print({p[2]})"
+
 
 #operacao −→ SOME var COM var. | SOME var COM num. | SOME num COM num. | MULTIPLIQUE var POR var. | MULTIPLIQUE var POR num. | MULTIPLIQUE num POR num. | MULTIPLIQUE num POR var.
 #tem q virar var + var, var + num, num + num, var * var, var * num, num * num, num * var
@@ -151,20 +153,17 @@ def p_selecao(p):
                | SE NUM ENTAO cmds FIM
                | SE VAR ENTAO cmds SENAO cmds FIM
                | SE NUM ENTAO cmds SENAO cmds FIM'''
-    
+
     condition = p[2] if isinstance(p[2], str) else (p[2] != 0)
-    
+
     # Estrutura para SE-ENTAO sem SENAO
     if len(p) == 6:
         p[0] = f"if {condition}:\n\t" + p[4].replace("\n", "\n\t")
-        
     # Estrutura para SE-ENTAO-SENAO
     else:
         p[0] = f"if {condition}:\n\t" + p[4].replace("\n", "\n\t") + "\nelse:\n\t" + p[6].replace("\n", "\n\t")
 
-    print("Seleção gerada:", p[0])
-
-
+# Função de erro
 def p_error(p):
     if p:
         print(f"Erro de sintaxe no token '{p.value}', linha {p.lineno}")
@@ -178,9 +177,9 @@ lexer = lex.lex(debug=True)
 parser = yacc.yacc()
 
 #contagem de testes realizados
-#contTestes = 0
+contTestes = 0
 
-with open("file6.mag","r") as file:
+"""with open("file6.mag","r") as file:
     data = file.read()
 
 lexer.input(data)
@@ -202,10 +201,10 @@ except Exception as e:
     print(f"Erro durante a execução do código gerado: {e}")
 
 
-#exec(result)
+#exec(result)"""
 
 # Realiza os testes para os arquivos file1.mag até file8.mag
-"""for i in range(1, 9):
+for i in range(1, 9):
     
     #montando nomes para os arquivos de entrada e saida
     stringFileMag = "file" + str(i) + ".mag"
@@ -244,6 +243,6 @@ except Exception as e:
         print(result)
         
 if(contTestes == 8):
-    print("Todos os testes foram realizados com sucesso!")"""
+    print("Todos os testes foram realizados com sucesso!")
 
     
