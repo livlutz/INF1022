@@ -3,7 +3,7 @@
 import ply.lex as lex
 import ply.yacc as yacc
 
-"""A sintaxe da linguagem Matem´agica ´e dada pela gram´atica abaixo:
+"""A sintaxe da linguagem Matemagica e dada pela gramatica abaixo:
 programa −→ cmds
 cmds −→ cmd cmds | cmd
 cmd −→ atribuicao | impressao | operacao | repeticao
@@ -13,18 +13,9 @@ operacao −→ SOME var COM var. | SOME var COM num. |
 SOME num COM num. | MULTIPLIQUE var POR var. | MULTIPLIQUE var POR num. | MULTIPLIQUE num POR num. | MULTIPLIQUE num POR var.
 repeticao −→ REPITA num VEZES : cmds FIM
 selecao −→ SE VAR ENTAO cmds FIM | SE NUM ENTAO cmds FIM | SE VAR ENTAO cmds SENAO cmds FIM | SE NUM ENTAO cmds SENAO cmds FIM
+"""
 
-Alem disso, a gramatica descrita acima deve ser complementada para que a linguagem Matemagica seja capaz de executar comandos do tipo:
-
-• SE-ENTAO e SE-ENTAO-SENAO: Comandos de selecao do tipo SE ENTAO. Por exemplo: 
-SE condicao ENTAO comando. 
-Ou SE condicao ENTAO comando SENAO comando. 
-A condicao deve ser representada por um numero. O numero 0 significa FALSO e qualquer numero diferente de zero significa VERDADEIRO.
-
-• Multiplique A por B: Funcao para multiplicar A por B. Deve ser implementada no formatos: MULTIPLIQUE A P OR B .
-Onde A e B podem ser variaveis ou numeros"""
-
-# Dicionário de palavras reservadas
+# Dicionário de palavras da linguagem Matemagica
 reserved = {
     'FACA': 'FACA',
     'SER': 'SER',
@@ -41,16 +32,16 @@ reserved = {
     'SENAO': 'SENAO'
 }
 
-# Definindo o token VAR como qualquer palavra que não seja uma palavra reservada
+# Definindo os tokens da linguagem Matemagica (terminais) e adicionando as palavras reservadas
 tokens = ['NUM', 'VAR', 'PONTO', 'DOISPONTOS'] + list(reserved.values())
 
-# Regex para variáveis e palavras-chave
+# Regex para variáveis (identificadores)
 def t_VAR(t):
     r'[a-zA-Z_][a-zA-Z0-9_]*'
     t.type = reserved.get(t.value, 'VAR')  # Se não for uma palavra reservada, é uma variável
     return t
 
-#expressoes regulares para os tokens
+#Expressoes regulares para os tokens
 t_FACA = r'FACA'
 t_SER = r'SER'
 t_MOSTRE = r'MOSTRE'
@@ -73,7 +64,7 @@ t_ignore = ' \t'
 # definindo regex para os numeros
 def t_NUM(t):
     r'\d+'
-    t.value = int(t.value)  # Converte o valor do token para inteiro
+    t.value = int(t.value) 
     return t
 
 #Funcao para tratar erros
@@ -81,7 +72,7 @@ def t_error(t):
     print(f"Caracter ilegal: '{t.value[0]}' na posição {t.lexpos}")
     t.lexer.skip(1)
     
-# Ignora novas linhas
+# Ignora newline
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
@@ -116,13 +107,12 @@ def p_atribuicao(p):
     '''atribuicao : FACA VAR SER NUM PONTO'''
     p[0] = f"{p[2]} = {p[4]}"
 
-#impressao −→ MOSTRE var. | MOSTRE operacao. | MOSTRE num.
+#impressao −→ MOSTRE var. | MOSTRE operacao. | MOSTRE num. tem q virar print(var), print(operacao) ou print(num)
 def p_impressao(p):
     '''impressao : MOSTRE VAR PONTO
                  | MOSTRE operacao PONTO
                  | MOSTRE NUM PONTO'''
     p[0] = f"print({p[2]})"
-
 
 #operacao −→ SOME var COM var. | SOME var COM num. | SOME num COM num. | MULTIPLIQUE var POR var. | MULTIPLIQUE var POR num. | MULTIPLIQUE num POR num. | MULTIPLIQUE num POR var.
 #tem q virar var + var, var + num, num + num, var * var, var * num, num * num, num * var
@@ -134,8 +124,10 @@ def p_operacao(p):
                 | MULTIPLIQUE VAR POR NUM PONTO
                 | MULTIPLIQUE NUM POR NUM PONTO
                 | MULTIPLIQUE NUM POR VAR PONTO'''
+                
     if p[1] == "SOME":
         p[0] = f"{p[2]} = {p[2]} + {p[4]}"
+        
     else:
         p[0] = f"{p[2]} = {p[2]} * {p[4]}"
 
@@ -154,14 +146,13 @@ def p_selecao(p):
                | SE VAR ENTAO cmds SENAO cmds FIM
                | SE NUM ENTAO cmds SENAO cmds FIM'''
 
-    condition = p[2] if isinstance(p[2], str) else (p[2] != 0)
+    num_ou_var = p[2] if isinstance(p[2], str) else (p[2] != 0)
 
-    # Estrutura para SE-ENTAO sem SENAO
     if len(p) == 6:
-        p[0] = f"if {condition}:\n\t" + p[4].replace("\n", "\n\t")
-    # Estrutura para SE-ENTAO-SENAO
+        p[0] = f"if {num_ou_var}:\n\t" + p[4].replace("\n", "\n\t")
+    
     else:
-        p[0] = f"if {condition}:\n\t" + p[4].replace("\n", "\n\t") + "\nelse:\n\t" + p[6].replace("\n", "\n\t")
+        p[0] = f"if {num_ou_var}:\n\t" + p[4].replace("\n", "\n\t") + "\nelse:\n\t" + p[6].replace("\n", "\n\t")
 
 # Função de erro
 def p_error(p):
@@ -178,30 +169,6 @@ parser = yacc.yacc()
 
 #contagem de testes realizados
 contTestes = 0
-
-"""with open("file6.mag","r") as file:
-    data = file.read()
-
-lexer.input(data)
-
-# Exibe cada token gerado para depuração
-print("Tokens gerados:")
-for token in lexer:
-    print(token)
-
-# Reinicializa o lexer e realiza a análise sintática
-lexer.input(data)  # Necessário para resetar a posição do lexer no arquivo
-result = parser.parse(data)
-
-print(result)
-
-try:
-    exec(result)
-except Exception as e:
-    print(f"Erro durante a execução do código gerado: {e}")
-
-
-#exec(result)"""
 
 # Realiza os testes para os arquivos file1.mag até file8.mag
 for i in range(1, 9):
@@ -235,11 +202,14 @@ for i in range(1, 9):
         exec(result)
         
         contTestes += 1
+        
     else:
         print("Erro ao gerar o código da file" + str(i) + ".mag")
         print("Tokens gerados:")
+        
         for token in lexer:
             print(token)
+            
         print(result)
         
 if(contTestes == 8):
