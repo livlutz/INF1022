@@ -4,7 +4,7 @@ Nome - matrícula - turma : Lívia Lutz dos Santos - 2211055 - 3WA
 
 O que foi implementado : 
 
-Implementei um lexer e um parser em Python para a linguagem Matemágica a partir de suas expressões regulares e gramática
+Implementei um analisador léxico - sintático para a linguagem Matemágica a partir de suas expressões regulares e gramática
 que gera um código em python equivalente ao código em Matemágica de entrada.
 
 Como foi implementado :
@@ -149,8 +149,9 @@ em qual token o erro foi encontrado.
 Também implementei um contador de testes que no final da execução do loop descrito acima, verifica se a quantidade de testes
 bem-sucedidos é igual a quantidade de testes feitos, indicando se todos os testes funcionam ou não.
 
-(Para fins de teste, por favor dar unzip nos arquivos .mag que enviarei no ead e deixar a pasta com o mesmo nome (Testes),
-assim, o arquivo analisador_sintatico.py poderá rodar os testes normalmente)
+Para fins de teste, por favor dar unzip nos arquivos .mag que enviarei no ead e deixar a pasta com o mesmo nome (Testes),
+assim, o arquivo analisador_sintatico.py poderá rodar os testes normalmente, caso os arquivos .mag não estejam abrindo corretamente, apenas os crie novamente a 
+partir do conteúdo de cada um listado acima
 
 Gramática final usada :
 
