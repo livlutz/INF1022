@@ -138,6 +138,127 @@ FIM
 MOSTRE a.
 MOSTRE b.
 
+Resultado dos testes e seus respectivos códigos em pyhton gerados:
+
+Em ordem para cada teste listado no item acima
+
+x = 10
+print(x)
+10
+
+a = 3
+b = 7
+a = a + b
+print(a)
+10
+
+total = 0
+for i in range(5):
+        total = total + 2
+print(total)
+10
+
+n = 4
+if n:
+        print(n)
+4
+
+num = 0
+if num:
+        print(num)
+else:
+        print(10)
+10
+
+x = 3
+y = 5
+x = x * y
+print(x)
+15
+
+resultado = 1
+for i in range(3):
+        resultado = resultado * 2
+print(resultado)
+8
+
+x = 5
+y = 10
+print(x)
+print(y)
+print(15)
+5
+10
+15
+
+a = 3
+b = 4
+a = a + b
+a = a * b
+print(a)
+print(b)
+28
+4
+
+contador = 1
+for i in range(5):
+        print(contador)
+        contador = contador + 1
+1
+2
+3
+4
+5
+
+numero = 0
+if numero:
+        print(numero)
+
+(Nesse caso não exibiu nenhum resultado pois numero == 0 == False)
+
+x = 2
+y = 3
+for i in range(3):
+        if x:
+                print(x)
+                if y:
+                        print(y)
+        else:
+                print(0)
+        x = x + 1
+        y = y * x
+2
+3
+3
+9
+4
+36
+
+resultado = 1
+resultado = resultado * 5
+resultado = resultado + 10
+print(resultado)
+15
+
+a = 10
+b = 20
+a = a * b
+b = b + a
+print(a)
+print(b)
+for i in range(2):
+        if a:
+                a = a * b
+        else:
+                b = b + a
+print(a)
+print(b)
+200
+220
+9680000
+9680000
+9680000
+220
 
 Maneira de utilizar os testes :
 
@@ -152,6 +273,11 @@ bem-sucedidos é igual a quantidade de testes feitos, indicando se todos os test
 Para fins de teste, por favor dar unzip nos arquivos .mag que enviarei no ead e deixar a pasta com o mesmo nome (Testes),
 assim, o arquivo analisador_sintatico.py poderá rodar os testes normalmente, caso os arquivos .mag não estejam abrindo corretamente, apenas os crie novamente a 
 partir do conteúdo de cada um listado acima
+
+Para executar o código do trabalho, primeiro certifique-se que os módulos ply.lex e ply.yacc estejam presentes no compilador
+python usado (caso não estejam, basta instalar usando o comando pip install), depois certifique-se que os passos descritos no 
+parágrafo acima sejam seguidos e então basta dar o comando run para executar o código e verificar os testes e seus respectivos
+resultados.
 
 Gramática final usada :
 
